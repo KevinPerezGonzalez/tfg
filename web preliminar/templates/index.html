@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Casos Similares</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+        .result { border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 5px; }
+        .score { font-size: 0.9em; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Buscar Casos Similares</h1>
+    <form method="POST">
+        <input type="text" name="query" placeholder="Escribe tu consulta aquí" value="{{ query }}" style="width: 80%;" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if results %}
+        <h2>Resultados:</h2>
+        {% for res in results %}
+            <div class="result">
+                <div class="score">ID: {{ res.id }} | Score: {{ res.score }}</div>
+                <strong>Subject:</strong> {{ res.subject }}<br>
+                <strong>Tags:</strong> {{ res.tags }}<br>
+                <strong>Body:</strong> {{ res.body }}<br>
+                <strong>Answer:</strong> {{ res.answer }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
