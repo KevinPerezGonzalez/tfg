@@ -1,9 +1,9 @@
 // src/App.js
 import React, { useState } from 'react';
-import axios from 'axios'; // o usa fetch
-import './App.css'; // Crearemos este archivo para estilos
+import axios from 'axios';
+import './App.css'; // archivo para estilos
 
-const API_URL = 'http://localhost:5000/api/search'; // URL de tu backend Flask
+const API_URL = 'http://localhost:5000/api/search'; // URL de backend Flask
 
 function App() {
   const [query, setQuery] = useState('');
@@ -31,7 +31,7 @@ function App() {
     setSearchedQuery(query); // Guarda la consulta que se está buscando
 
     try {
-      // Asegúrate de que el servidor Flask (app.py) está corriendo
+      // Asegurar de que el servidor Flask (app.py) está corriendo
       const response = await axios.get(API_URL, {
         params: { query: query }
       });
@@ -86,9 +86,6 @@ function App() {
                 ))}
               </p>
             )}
-            {/* Descomenta para ver más detalles si los envías desde el backend 
-            <p><strong>Body:</strong><br />{result.body}</p>
-            */}
             <p><strong>Respuesta / Solución:</strong><br />{result.answer}</p>
           </div>
         ))}

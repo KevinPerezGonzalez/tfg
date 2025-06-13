@@ -1,0 +1,1217 @@
+﻿Ticket ID,subject,problem_text,answer,tags,powertoys_version,install_method,area,steps_to_reproduce,expected_behavior,actual_behavior,additional_info
+40033,-,"Área: Settings. Problema: -. Comportamiento: _No response_. Pasos para reproducir: Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.27871.0
+IntPtr Length: 8
+x64: True
+Date: 2025/06/13 19:01:01
+Exception:
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.Runtime.InteropServices.COMException (0x80263001): {已禁用桌面合成} 操作无法完成，因为已禁用桌面合成。 (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnApplicationThemeChanged(ThemeMode oldThemeMode, ThemeMode newThemeMode)
+   at PowerLauncher.Helper.ThemeManager.SetSystemTheme(Theme theme)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at PowerLauncher.Helper.ThemeManager.OnUserPreferenceChanged(Object sender, UserPreferenceChangedEventArgs e)
+   at InvokeStub_UserPreferenceChangedEventHandler.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Delegate.DynamicInvokeImpl(Object[] args)
+   at Microsoft.Win32.SystemEvents.SystemEventInvokeInfo.InvokeCallback(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",Reopening as we're still seeing reports :(,"Issue-Bug,Resolution-Duplicate",-,Microsoft Store,Settings,"Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.27871.0
+IntPtr Length: 8
+x64: True
+Date: 2025/06/13 19:01:01
+Exception:
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.Runtime.InteropServices.COMException (0x80263001): {已禁用桌面合成} 操作无法完成，因为已禁用桌面合成。 (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnApplicationThemeChanged(ThemeMode oldThemeMode, ThemeMode newThemeMode)
+   at PowerLauncher.Helper.ThemeManager.SetSystemTheme(Theme theme)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at PowerLauncher.Helper.ThemeManager.OnUserPreferenceChanged(Object sender, UserPreferenceChangedEventArgs e)
+   at InvokeStub_UserPreferenceChangedEventHandler.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Delegate.DynamicInvokeImpl(Object[] args)
+   at Microsoft.Win32.SystemEvents.SystemEventInvokeInfo.InvokeCallback(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",_No response_,_No response_,_No response_
+39968,Conflict with PowerToys run keyboard shortcut,Área: PowerToys Run. Problema: Conflict with PowerToys run keyboard shortcut. Comportamiento: _No response_. Pasos para reproducir: The shortcut for powertoys run (alt + space) conflicts with copilot shortcut !!!,"You are always free to change the keyboard shortcuts to whatever you want. You'll find there are lots of apps with keyboard shortcuts which conflict with one another. It's impossible for everyone to pick unique values. 
+
+That's why it's always important to give users settings to control things like this. ","Issue-Bug,Needs-Triage",v0.91.1,PowerToys auto-update,PowerToys Run,The shortcut for powertoys run (alt + space) conflicts with copilot shortcut !!!,change the default keys for both applications.,_No response_,_No response_
+39954,Command Palette auto starts when disabled,"Área: Command Palette. Problema: Command Palette auto starts when disabled. Comportamiento: Auto-starts with Windows.. Pasos para reproducir: Disable Command Palette under the dashboard and then restart the computer. Command palette auto-starts even though it's disabled. To get it to go away, toggle the switch in the dashboard, and it closes.","PowerToys is still set to start on login, right? 
+
+In 0.1 we decided that since CmdPal is just a part of PowerToys, we'll just use PT's startup task, rather than our own. 
+
+You should be able to disable the CmdPal module within PT's settings, and that should prevent it from launching when PowerToys does.","Issue-Bug,Needs-Triage",0.91.1,PowerToys auto-update,Command Palette,"Disable Command Palette under the dashboard and then restart the computer. Command palette auto-starts even though it's disabled. To get it to go away, toggle the switch in the dashboard, and it closes.",Command Palette doesn't launch since it's disabled,Auto-starts with Windows.,_No response_
+39924,PowerToys Run ran into an issue (while PC unattended overnight),"Área: General. Problema: PowerToys Run ran into an issue (while PC unattended overnight). Comportamiento: _No response_. Pasos para reproducir: I've not tried to reproduce the error as it happened while I was away from my PC overnight, so I'm not sure what was happening at the time (the PC was not in use by anyone at the time).","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.87.1.0,Microsoft Store,General,"I've not tried to reproduce the error as it happened while I was away from my PC overnight, so I'm not sure what was happening at the time (the PC was not in use by anyone at the time).",_No response_,_No response_,"Version: 0.87.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0 (running as local admin)
+IntPtr Length: 8
+x64: True
+Date: 6/06/2025 03:13:40
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+Attaching log file and screen shot of error message.
+
+[2025-06-06.txt](https://github.com/user-attachments/files/20619831/2025-06-06.txt)
+
+![Image](https://github.com/user-attachments/assets/5b592083-0903-49df-84d0-2fd5331923b4)"
+39904,Not sure what happened,"Área: General. Problema: Not sure what happened. Comportamiento: [2025-06-03.txt](https://github.com/user-attachments/files/20591294/2025-06-03.txt). Pasos para reproducir: I have no clue what happened, only reporting just for the sake of the crash, feel free to close if not felt relevant!
+
+All I remember is turning on my laptop, logging in, then plug in an external monitor (which defaults to secondary monitor only), so my laptop screen turned off. The crash appeared when the monitor started to display. It is perfectly possible that this wasn't related and it was just that I saw the crash window on the secondary display.","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.87.0.0,Microsoft Store,General,"I have no clue what happened, only reporting just for the sake of the crash, feel free to close if not felt relevant!
+
+All I remember is turning on my laptop, logging in, then plug in an external monitor (which defaults to secondary monitor only), so my laptop screen turned off. The crash appeared when the monitor started to display. It is perfectly possible that this wasn't related and it was just that I saw the crash window on the secondary display.",_No response_,[2025-06-03.txt](https://github.com/user-attachments/files/20591294/2025-06-03.txt),"Windows 11 Home - 10.0.26100 Build 26100
+4.8.9032.0
+UK English
+Not sure as it is MS Store (so I presume user)
+Unsure"
+39901,Problem when trying to start YouTube video in Brave Beta browser,"Área: General. Problema: Problem when trying to start YouTube video in Brave Beta browser. Comportamiento: Screen goes black. Video sound continues to play but it is some seconds before picture emerges. Powertoys error message appears.. Pasos para reproducir: With Brave Beta already running, click on video to start it.",Reopening as we're still seeing reports :(,"Issue-Bug,Resolution-Duplicate",0.91.1.0,PowerToys auto-update,General,"With Brave Beta already running, click on video to start it.",Video should start to play,Screen goes black. Video sound continues to play but it is some seconds before picture emerges. Powertoys error message appears.,"Windows 11 Home version 24H2
+Not running as Admin"
+39894,Command Palette loader,"Área: Command Palette. Problema: Command Palette loader. Comportamiento: _No response_. Pasos para reproducir: starting windows
+
+![Image](https://github.com/user-attachments/assets/98ef4a78-54d0-4586-b13b-d6fbc893020d)",This has been fixed in 0.91. You'll need to update to the latest version. ,"Issue-Bug,Needs-Triage,Product-Command Palette",v0.90.1,PowerToys auto-update,Command Palette,"starting windows
+
+![Image](https://github.com/user-attachments/assets/98ef4a78-54d0-4586-b13b-d6fbc893020d)",_No response_,_No response_,_No response_
+39884,PowerToys,"Área: ColorPicker. Problema: PowerToys. Comportamiento: Color Purple and the screen shrink. Pasos para reproducir: Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 03/06/2025 23:17:39
+Exception:
+System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Window.Show()
+   at PowerLauncher.Helper.ErrorReporting.Report(Exception e, Boolean waitForClose)
+   at PowerLauncher.Helper.ErrorReporting.DispatcherUnhandledException(Object sender, DispatcherUnhandledExceptionEventArgs e)
+   at System.Windows.Threading.Dispatcher.CatchException(Exception e)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+   at System.Windows.Threading.Dispatcher.LegacyInvokeImpl(DispatcherPriority priority, TimeSpan timeout, Delegate method, Object args, Int32 numArgs)
+   at MS.Win32.HwndSubclass.SubclassWndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam)",Reopening as we're still seeing reports :(,"Issue-Bug,Resolution-Duplicate",0.91.1.0,PowerToys auto-update,ColorPicker,"Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 03/06/2025 23:17:39
+Exception:
+System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Window.Show()
+   at PowerLauncher.Helper.ErrorReporting.Report(Exception e, Boolean waitForClose)
+   at PowerLauncher.Helper.ErrorReporting.DispatcherUnhandledException(Object sender, DispatcherUnhandledExceptionEventArgs e)
+   at System.Windows.Threading.Dispatcher.CatchException(Exception e)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+   at System.Windows.Threading.Dispatcher.LegacyInvokeImpl(DispatcherPriority priority, TimeSpan timeout, Delegate method, Object args, Int32 numArgs)
+   at MS.Win32.HwndSubclass.SubclassWndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam)",work normally,Color Purple and the screen shrink,"win 11 64 bit 24H2 
+26100.4202"
+39879,desktop composition is disabled.,"Área: Awake. Problema: desktop composition is disabled.. Comportamiento: screen freeze  and win is only on 1/4 from the screen and the color fade to Purple. Pasos para reproducir: Version: 0.91.0.0OS Version: Microsoft Windows NT 10.0.26100.0IntPtr Length: 8x64: TrueDate: 03/06/2025 10:04:56Exception:System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)   at System.Windows.ThemeManager.OnSystemThemeChanged()   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",Reopening as we're still seeing reports :(,"Issue-Bug,Resolution-Duplicate",0.91.0.0,PowerToys auto-update,Awake,"Version: 0.91.0.0OS Version: Microsoft Windows NT 10.0.26100.0IntPtr Length: 8x64: TrueDate: 03/06/2025 10:04:56Exception:System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)   at System.Windows.ThemeManager.OnSystemThemeChanged()   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",screen open normaly,screen freeze  and win is only on 1/4 from the screen and the color fade to Purple,_No response_
+39867,> key is not present in key list when trying to remap keyboard shortcuts,"Área: Keyboard Manager. Problema: > key is not present in key list when trying to remap keyboard shortcuts. Comportamiento: Did not find the > key.. Pasos para reproducir: Select keyboard manager, then try to create a new keyboard shortcut, select alt(right) + ., then click on the drop down menu.",/dup https://github.com/microsoft/PowerToys/issues/36322,"Issue-Bug,Resolution-Duplicate,Product-Keyboard Shortcut Manager",v0.91.1,Microsoft Store,Keyboard Manager,"Select keyboard manager, then try to create a new keyboard shortcut, select alt(right) + ., then click on the drop down menu.",To find the > key.,Did not find the > key.,Windows 10 Home 64 bits
+39855,trouble occurs at PowerToys Run,Área: PowerToys Run. Problema: trouble occurs at PowerToys Run. Comportamiento: _No response_. Pasos para reproducir: ダイアログが表示されたので、そのメッセージに従って提出を行います。,Reopening as we're still seeing reports :(,"Issue-Bug,Resolution-Duplicate,Product-PowerToys Run",0.87.1.0,Microsoft Store,PowerToys Run,ダイアログが表示されたので、そのメッセージに従って提出を行います。,_No response_,_No response_,"Version: 0.87.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 2025/05/31 1:44:33
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.ApplyFluentOnWindow(Window window)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[2025-05-31.txt](https://github.com/user-attachments/files/20551315/2025-05-31.txt)"
+39830,0xD0000701,"Área: Welcome / PowerToys Tour window. Problema: 0xD0000701. Comportamiento: _No response_. Pasos para reproducir: Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/31/2025 12:57:20 AM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.91.1,"Microsoft Store, PowerToys auto-update, WinGet",Welcome / PowerToys Tour window,"Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/31/2025 12:57:20 AM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",_No response_,_No response_,_No response_
+39827,Something went wrong,"Área: General. Problema: Something went wrong. Comportamiento: Crash was totally random. I was watching a YouTube video and got a BSOD and a loud buzzing from my speakers. I did nothing to cause this, so it obviously can't be reproduced.. Pasos para reproducir: Crash was totally random. I was watching a YouTube video and got a BSOD and a loud buzzing from my speakers. I did nothing to cause this, so it obviously can't be reproduced.","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.90.0,"Other (please specify in ""Steps to Reproduce"")",General,"Crash was totally random. I was watching a YouTube video and got a BSOD and a loud buzzing from my speakers. I did nothing to cause this, so it obviously can't be reproduced.",My computer to work without crashing suddenly and randomly.,"Crash was totally random. I was watching a YouTube video and got a BSOD and a loud buzzing from my speakers. I did nothing to cause this, so it obviously can't be reproduced.","Version: 0.90.0.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/30/2025 20:06:31
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)"
+39820,PowerToys ran into an issue,"Área: General. Problema: PowerToys ran into an issue. Comportamiento: _No response_. Pasos para reproducir: OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/30/2025 9:54:26 AM
+Exception:
+System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[2025-05-30.txt](https://github.com/user-attachments/files/20522603/2025-05-30.txt)",/dup https://github.com/microsoft/PowerToys/issues/31226,"Issue-Bug,Resolution-Duplicate",0.90.1,PowerToys auto-update,General,"OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/30/2025 9:54:26 AM
+Exception:
+System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[2025-05-30.txt](https://github.com/user-attachments/files/20522603/2025-05-30.txt)",_No response_,_No response_,_No response_
+39815,Popup error while system was idle,"Área: General. Problema: Popup error while system was idle. Comportamiento: Popup said something went wrong and said to submit a bug here. Pasos para reproducir: System was idle
+
+[2025-05-30.txt](https://github.com/user-attachments/files/20521013/2025-05-30.txt)",/dup https://github.com/microsoft/PowerToys/issues/30769,"Issue-Bug,Resolution-Duplicate",0.91.1,PowerToys auto-update,General,"System was idle
+
+[2025-05-30.txt](https://github.com/user-attachments/files/20521013/2025-05-30.txt)",No error,Popup said something went wrong and said to submit a bug here,OS Version: Microsoft Windows NT 10.0.26100.0
+39814,ComException,"Área: General. Problema: ComException. Comportamiento: The opposite. It crashed and showed a message in the foreground.. Pasos para reproducir: Not sure. Came up after waking my Surface Studio from sleep and gave me the path to the log.
+
+[2025-05-30.txt](https://github.com/user-attachments/files/20519636/2025-05-30.txt)
+
+Version: 0.88.0.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/30/2025 7:07:44 AM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",/dup https://github.com/microsoft/PowerToys/issues/30769,"Issue-Bug,Resolution-Duplicate",0.88.0.0,GitHub,General,"Not sure. Came up after waking my Surface Studio from sleep and gave me the path to the log.
+
+[2025-05-30.txt](https://github.com/user-attachments/files/20519636/2025-05-30.txt)
+
+Version: 0.88.0.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/30/2025 7:07:44 AM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",It not to crash and continue running in the background ;),The opposite. It crashed and showed a message in the foreground.,"Windows 11 10.0.26100.0 x64
+.NET 7, 8, 9, 10 (Preview) installed"
+39810,Power Toys ran into an Issue,"Área: General. Problema: Power Toys ran into an Issue. Comportamiento: Message Something went Wrong
+
+Version: 0.90.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 2025-05-29 9:15:56 PM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler). Pasos para reproducir: Occurred while doing a google search in  Edge browser","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.90.1.0,GitHub,General,Occurred while doing a google search in  Edge browser,Normal search return with site list,"Message Something went Wrong
+
+Version: 0.90.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 2025-05-29 9:15:56 PM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",Windows 11 updated as of today
+39808,dunno it chunked then said this,"Área: Always on Top. Problema: dunno it chunked then said this. Comportamiento: _No response_. Pasos para reproducir: Version: 0.88.0.0
+OS Version: Microsoft Windows NT 10.0.26120.0
+IntPtr Length: 8
+x64: True
+Date: 2025-05-29 8:41:37 PM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.Window.OnSourceInitialized(EventArgs e)
+   at PowerLauncher.MainWindow.OnSourceInitialized(EventArgs e)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.88.0.0,Microsoft Store,Always on Top,"Version: 0.88.0.0
+OS Version: Microsoft Windows NT 10.0.26120.0
+IntPtr Length: 8
+x64: True
+Date: 2025-05-29 8:41:37 PM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.Window.OnSourceInitialized(EventArgs e)
+   at PowerLauncher.MainWindow.OnSourceInitialized(EventArgs e)
+   at System.Windows.Window.CreateSourceWindow(Boolean duringShow)
+   at System.Windows.Window.ShowHelper(Object booleanBox)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",_No response_,_No response_,_No response_
+39793,COMException: DwmExtendFrameIntoClientArea crashes PowerToys Run and causes screen flicker,"Área: FancyZones, PowerToys Run. Problema: COMException: DwmExtendFrameIntoClientArea crashes PowerToys Run and causes screen flicker. Comportamiento: PowerToys Run triggers a COMException related to DWM (DwmExtendFrameIntoClientArea), causing the screen to flicker/turn off briefly, and then displays an error dialog.. Pasos para reproducir: 1. Launch Windows and PowerToys starts automatically.
+2. Use PowerToys Run (`Alt + Space`) to open it.
+3. PowerToys Run fails to render properly.
+4. Screen flashes (goes black briefly), then returns.
+5. PowerToys shows an error window with COMException.","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.81.1.0,"Microsoft Store, PowerToys auto-update, WinGet","FancyZones, PowerToys Run","1. Launch Windows and PowerToys starts automatically.
+2. Use PowerToys Run (`Alt + Space`) to open it.
+3. PowerToys Run fails to render properly.
+4. Screen flashes (goes black briefly), then returns.
+5. PowerToys shows an error window with COMException.","PowerToys Run opens with no visual glitches or screen flickering, and displays its interface properly.","PowerToys Run triggers a COMException related to DWM (DwmExtendFrameIntoClientArea), causing the screen to flicker/turn off briefly, and then displays an error dialog.","C:\Users\Wenjay-PC\AppData\Local\Microsoft\PowerToys\PowerToys Run\Logs\0.81.1.0\2025-05-29.txt
+
+Version: 0.81.1.0
+OS Version: Microsoft Windows NT 10.0.19045.0
+IntPtr Length: 8
+x64: True
+Date: 5/29/2025 6:56:02 AM
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Shell.WindowChromeWorker._ExtendGlassFrame()
+   at System.Windows.Shell.WindowChromeWorker._UpdateFrameState(Boolean force)
+   at System.Windows.Shell.WindowChromeWorker._HandleDwmCompositionChanged(WM uMsg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Shell.WindowChromeWorker._WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.PublicHooksFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[2025-05-29.txt](https://github.com/user-attachments/files/20495952/2025-05-29.txt)"
+39791,something went wrong,"Área: General. Problema: something went wrong. Comportamiento: Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/28/2025 4:15:46 PM
+Exception:
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnApplicationThemeChanged(ThemeMode oldThemeMode, ThemeMode newThemeMode)
+   at PowerLauncher.Helper.ThemeManager.SetSystemTheme(Theme theme)
+   at PowerLauncher.Helper.ThemeManager.<>c__DisplayClass14_0.<UpdateTheme>b__0()
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback)
+   at PowerLauncher.Helper.ThemeManager.UpdateTheme()
+   at PowerLauncher.Helper.ThemeManager.OnUserPreferenceChanged(Object sender, UserPreferenceChangedEventArgs e)
+   at InvokeStub_UserPreferenceChangedEventHandler.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Delegate.DynamicInvokeImpl(Object[] args)
+   at Microsoft.Win32.SystemEvents.SystemEventInvokeInfo.InvokeCallback(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler). Pasos para reproducir: [2025-05-28 01:36:38.4953] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.MinecraftJavaEdition_8wekyb3d8bbwe!Game can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 01:36:39.2072] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.4297127D64EC6_8wekyb3d8bbwe!Minecraft can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 01:36:39.3095] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |king.com.FarmHeroesSaga_kgqvnymyfvs32!App can't find logo uri for square44x44logo.png in package location: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 16:15:41.1723] [FATAL]
+## Exception
+
+```
+System.Runtime.InteropServices.COMException: 0xD0000701
+   Source: PresentationFramework
+   TargetAssembly: PresentationFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+   TargetModule: PresentationFramework.dll
+   TargetSite: Int32 DwmExtendFrameIntoClientArea(IntPtr, Standard.MARGINS ByRef)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnApplicationThemeChanged(ThemeMode oldThemeMode, ThemeMode newThemeMode)
+   at PowerLauncher.Helper.ThemeManager.SetSystemTheme(Theme theme)
+   at PowerLauncher.Helper.ThemeManager.<>c__DisplayClass14_0.<UpdateTheme>b__0()
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback)
+   at PowerLauncher.Helper.ThemeManager.UpdateTheme()
+   at PowerLauncher.Helper.ThemeManager.OnUserPreferenceChanged(Object sender, UserPreferenceChangedEventArgs e)
+   at InvokeStub_UserPreferenceChangedEventHandler.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+   Source: System.Private.CoreLib
+   TargetAssembly: System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e
+   TargetModule: System.Private.CoreLib.dll
+   TargetSite: System.Object InvokeWithFewArgs(System.Object, System.Reflection.BindingFlags, System.Reflection.Binder, System.Object[], System.Globalization.CultureInfo)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Delegate.DynamicInvokeImpl(Object[] args)
+   at Microsoft.Win32.SystemEvents.SystemEventInvokeInfo.InvokeCallback(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+```
+
+## Environment
+* Command Line: C:\Users\lando\AppData\Local\PowerToys\PowerToys.PowerLauncher.dll -powerToysPid 13348 --started-from-runner
+* Timestamp: 05/28/2025 16:15:39
+* Wox version: 0.91.1.0
+* OS Version: Microsoft Windows NT 10.0.26100.0
+* IntPtr Length: 8
+* x64: True
+* CLR Version: 9.0.5
+* Installed .NET Framework: 
+   * v2.0.50727 2.0.50727.4927 SP2
+   * v3.0 3.0.30729.4926 SP2
+   * v3.5 3.5.30729.4926 SP1
+   * v4 Client 4.8.09032
+   * v4 Full 4.8.09032
+   * v4.0 Client 4.0.0.0
+
+## Assemblies - PowerToys.PowerLauncher
+
+* System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e (C:\Users\lando\AppData\Local\PowerToys\System.Private.CoreLib.dll)
+* PowerToys.PowerLauncher, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.PowerLauncher.dll)
+* PresentationFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework.dll)
+* WindowsBase, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\WindowsBase.dll)
+* System.Runtime, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.dll)
+* System.Xaml, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Xaml.dll)
+* PowerToys.ManagedCommon, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.ManagedCommon.dll)
+* WinRT.Runtime, Version=2.2.0.0, Culture=neutral, PublicKeyToken=99ea127f02d97709 (C:\Users\lando\AppData\Local\PowerToys\WinRT.Runtime.dll)
+* System.Collections, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.dll)
+* System.Collections.Concurrent, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.Concurrent.dll)
+* Wox.Plugin, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\Wox.Plugin.dll)
+* PowerToys.GPOWrapperProjection, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.GPOWrapperProjection.dll)
+* System.Runtime.InteropServices, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.InteropServices.dll)
+* PowerToys.Common.UI, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.Common.UI.dll)
+* System.Threading.Thread, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.Thread.dll)
+* System.Text.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Text.Json.dll)
+* NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c (C:\Users\lando\AppData\Local\PowerToys\NLog.dll)
+* netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\netstandard.dll)
+* TestableIO.System.IO.Abstractions.Wrappers, Version=22.0.13.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59 (C:\Users\lando\AppData\Local\PowerToys\TestableIO.System.IO.Abstractions.Wrappers.dll)
+* Testably.Abstractions.FileSystem.Interface, Version=9.0.0.0, Culture=neutral, PublicKeyToken=f24346c8579fcb48 (C:\Users\lando\AppData\Local\PowerToys\Testably.Abstractions.FileSystem.Interface.dll)
+* System.IO.FileSystem.DriveInfo, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.FileSystem.DriveInfo.dll)
+* System.IO.FileSystem.Watcher, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.FileSystem.Watcher.dll)
+* System.Diagnostics.FileVersionInfo, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.FileVersionInfo.dll)
+* System.ComponentModel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.dll)
+* System.Threading, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.dll)
+* System.ComponentModel.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.Primitives.dll)
+* System.Net.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.Primitives.dll)
+* System.Net.Mail, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Net.Mail.dll)
+* System.Private.Uri, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Private.Uri.dll)
+* System.Linq, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Linq.dll)
+* System.ObjectModel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ObjectModel.dll)
+* System.Memory, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Memory.dll)
+* Wox.Infrastructure, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\Wox.Infrastructure.dll)
+* hyjiacan.py4n, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\hyjiacan.py4n.dll)
+* PowerToys.ManagedTelemetry, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.ManagedTelemetry.dll)
+* Microsoft.Win32.Registry, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Win32.Registry.dll)
+* System.Diagnostics.Tracing, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.Tracing.dll)
+* System.Diagnostics.DiagnosticSource, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.DiagnosticSource.dll)
+* System.IO.Packaging, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.Packaging.dll)
+* PresentationCore, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationCore.dll)
+* Microsoft.Win32.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Win32.Primitives.dll)
+* DirectWriteForwarder, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\DirectWriteForwarder.dll)
+* System.Runtime.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Extensions.dll)
+* System.Diagnostics.Debug, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.Debug.dll)
+* System.Runtime.CompilerServices.VisualC, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.CompilerServices.VisualC.dll)
+* System.Collections.NonGeneric, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.NonGeneric.dll)
+* System.Collections.Specialized, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.Specialized.dll)
+* System.Configuration.ConfigurationManager, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Configuration.ConfigurationManager.dll)
+* System.Xml.ReaderWriter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Xml.ReaderWriter.dll)
+* System.Private.Xml, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Private.Xml.dll)
+* System.Net.WebClient, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Net.WebClient.dll)
+* System.Text.Encoding.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Text.Encoding.Extensions.dll)
+* System.Numerics.Vectors, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Numerics.Vectors.dll)
+* System.Threading.ThreadPool, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.ThreadPool.dll)
+* System.Diagnostics.TraceSource, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.TraceSource.dll)
+* System.ComponentModel.TypeConverter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.TypeConverter.dll)
+* System.Windows.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Windows.Extensions.dll)
+* System.Net.Requests, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.Requests.dll)
+* System.Net.WebHeaderCollection, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.WebHeaderCollection.dll)
+* PresentationFramework.Fluent, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework.Fluent.dll)
+* System.Diagnostics.Process, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.Process.dll)
+* PresentationFramework.Aero2, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework.Aero2.dll)
+* System.Runtime.Loader, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Loader.dll)
+* System.Diagnostics.StackTrace, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.StackTrace.dll)
+* PowerToys.PowerLauncher.Telemetry, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.PowerLauncher.Telemetry.dll)
+* PowerToys.Settings.UI.Lib, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.Settings.UI.Lib.dll)
+* System.Text.Encodings.Web, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Text.Encodings.Web.dll)
+* System.Runtime.Intrinsics, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Intrinsics.dll)
+* System.Reflection.Emit.Lightweight, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Emit.Lightweight.dll)
+* System.Reflection.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Primitives.dll)
+* System.Reflection.Emit.ILGeneration, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Emit.ILGeneration.dll)
+* System.Text.RegularExpressions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Text.RegularExpressions.dll)
+* Microsoft.PowerToys.Run.Plugin.Calculator, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Calculator\Microsoft.PowerToys.Run.Plugin.Calculator.dll)
+* Microsoft.Plugin.Folder, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Folder\Microsoft.Plugin.Folder.dll)
+* System.Collections.Immutable, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.Immutable.dll)
+* Microsoft.PowerToys.Run.Plugin.History, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\History\Microsoft.PowerToys.Run.Plugin.History.dll)
+* Microsoft.Plugin.Indexer, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Indexer\Microsoft.Plugin.Indexer.dll)
+* Microsoft.PowerToys.Run.Plugin.OneNote, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\OneNote\Microsoft.PowerToys.Run.Plugin.OneNote.dll)
+* Microsoft.PowerToys.Run.Plugin.PowerToys, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\PowerToys\Microsoft.PowerToys.Run.Plugin.PowerToys.dll)
+* Microsoft.Plugin.Program, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Program\Microsoft.Plugin.Program.dll)
+* Microsoft.Windows.SDK.NET, Version=10.0.22621.38, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Windows.SDK.NET.dll)
+* System.Threading.Overlapped, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.Overlapped.dll)
+* Microsoft.PowerToys.Run.Plugin.Registry, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Registry\Microsoft.PowerToys.Run.Plugin.Registry.dll)
+* Microsoft.PowerToys.Run.Plugin.Service, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Service\Microsoft.PowerToys.Run.Plugin.Service.dll)
+* System.ServiceProcess.ServiceController, Version=9.0.0.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ServiceProcess.ServiceController.dll)
+* Microsoft.Plugin.Shell, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Shell\Microsoft.Plugin.Shell.dll)
+* Microsoft.PowerToys.Run.Plugin.System, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\System\Microsoft.PowerToys.Run.Plugin.System.dll)
+* System.Net.NetworkInformation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.NetworkInformation.dll)
+* Microsoft.PowerToys.Run.Plugin.TimeDate, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\TimeDate\Microsoft.PowerToys.Run.Plugin.TimeDate.dll)
+* Community.PowerToys.Run.Plugin.UnitConverter, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\UnitConverter\Community.PowerToys.Run.Plugin.UnitConverter.dll)
+* Microsoft.Plugin.Uri, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Uri\Microsoft.Plugin.Uri.dll)
+* Community.PowerToys.Run.Plugin.ValueGenerator, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\ValueGenerator\Community.PowerToys.Run.Plugin.ValueGenerator.dll)
+* System.Security.Cryptography, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Cryptography.dll)
+* Community.PowerToys.Run.Plugin.VSCodeWorkspaces, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\VSCodeWorkspaces\Community.PowerToys.Run.Plugin.VSCodeWorkspaces.dll)
+* System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Drawing.Common.dll)
+* System.Private.Windows.Core, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Private.Windows.Core.dll)
+* System.Drawing.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Drawing.Primitives.dll)
+* Community.PowerToys.Run.Plugin.WebSearch, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WebSearch\Community.PowerToys.Run.Plugin.WebSearch.dll)
+* Microsoft.PowerToys.Run.Plugin.WindowsSettings, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WindowsSettings\Microsoft.PowerToys.Run.Plugin.WindowsSettings.dll)
+* Microsoft.PowerToys.Run.Plugin.WindowsTerminal, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WindowsTerminal\Microsoft.PowerToys.Run.Plugin.WindowsTerminal.dll)
+* Microsoft.Plugin.WindowWalker, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WindowWalker\Microsoft.Plugin.WindowWalker.dll)
+* UIAutomationTypes, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\UIAutomationTypes.dll)
+* UIAutomationProvider, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\UIAutomationProvider.dll)
+* Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Xaml.Behaviors.dll)
+* Microsoft.Win32.SystemEvents, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Win32.SystemEvents.dll)
+* System.ComponentModel.EventBasedAsync, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.EventBasedAsync.dll)
+* Microsoft.Toolkit.Uwp.Notifications, Version=7.1.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2 (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Toolkit.Uwp.Notifications.dll)
+* System.IO.FileSystem, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.FileSystem.dll)
+* System.Security.Cryptography.Algorithms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Cryptography.Algorithms.dll)
+* System.Security.Cryptography.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Cryptography.Primitives.dll)
+* System.Reflection.Emit, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Emit.dll)
+* DynamicComActivator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null (dynamic assembly doesn't has location)
+* System.Security.Principal.Windows, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Principal.Windows.dll)
+* System.Security.Claims, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Claims.dll)
+* Mages.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\Mages.Core.dll)
+* System.Runtime.Numerics, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Numerics.dll)
+* System.IO.Pipelines, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.IO.Pipelines.dll)
+* System.Threading.Tasks.Parallel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.Tasks.Parallel.dll)
+* System.Linq.Expressions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Linq.Expressions.dll)
+* System.Linq.Parallel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Linq.Parallel.dll)
+* System.Xml.XDocument, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Xml.XDocument.dll)
+* System.Private.Xml.Linq, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Private.Xml.Linq.dll)
+* System.Reflection.Metadata, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Metadata.dll)
+* Accessibility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\Accessibility.dll)
+* PresentationFramework-SystemXmlLinq, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework-SystemXmlLinq.dll)
+* System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Xml.Linq.dll)
+* System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Windows.Forms.dll)
+* System.Windows.Forms.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Windows.Forms.Primitives.dll)
+* System.Reactive, Version=6.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263 (C:\Users\lando\AppData\Local\PowerToys\System.Reactive.dll)
+
+
+[2025-05-28 16:15:54.8078] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.MinecraftJavaEdition_8wekyb3d8bbwe!Game can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 16:15:55.0328] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.4297127D64EC6_8wekyb3d8bbwe!Minecraft can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 16:15:55.0761] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |king.com.FarmHeroesSaga_kgqvnymyfvs32!App can't find logo uri for square44x44logo.png in package location: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.91.1.0,Microsoft Store,General,"[2025-05-28 01:36:38.4953] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.MinecraftJavaEdition_8wekyb3d8bbwe!Game can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 01:36:39.2072] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.4297127D64EC6_8wekyb3d8bbwe!Minecraft can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 01:36:39.3095] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |king.com.FarmHeroesSaga_kgqvnymyfvs32!App can't find logo uri for square44x44logo.png in package location: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 16:15:41.1723] [FATAL]
+## Exception
+
+```
+System.Runtime.InteropServices.COMException: 0xD0000701
+   Source: PresentationFramework
+   TargetAssembly: PresentationFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+   TargetModule: PresentationFramework.dll
+   TargetSite: Int32 DwmExtendFrameIntoClientArea(IntPtr, Standard.MARGINS ByRef)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnApplicationThemeChanged(ThemeMode oldThemeMode, ThemeMode newThemeMode)
+   at PowerLauncher.Helper.ThemeManager.SetSystemTheme(Theme theme)
+   at PowerLauncher.Helper.ThemeManager.<>c__DisplayClass14_0.<UpdateTheme>b__0()
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback)
+   at PowerLauncher.Helper.ThemeManager.UpdateTheme()
+   at PowerLauncher.Helper.ThemeManager.OnUserPreferenceChanged(Object sender, UserPreferenceChangedEventArgs e)
+   at InvokeStub_UserPreferenceChangedEventHandler.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+   Source: System.Private.CoreLib
+   TargetAssembly: System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e
+   TargetModule: System.Private.CoreLib.dll
+   TargetSite: System.Object InvokeWithFewArgs(System.Object, System.Reflection.BindingFlags, System.Reflection.Binder, System.Object[], System.Globalization.CultureInfo)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Delegate.DynamicInvokeImpl(Object[] args)
+   at Microsoft.Win32.SystemEvents.SystemEventInvokeInfo.InvokeCallback(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+```
+
+## Environment
+* Command Line: C:\Users\lando\AppData\Local\PowerToys\PowerToys.PowerLauncher.dll -powerToysPid 13348 --started-from-runner
+* Timestamp: 05/28/2025 16:15:39
+* Wox version: 0.91.1.0
+* OS Version: Microsoft Windows NT 10.0.26100.0
+* IntPtr Length: 8
+* x64: True
+* CLR Version: 9.0.5
+* Installed .NET Framework: 
+   * v2.0.50727 2.0.50727.4927 SP2
+   * v3.0 3.0.30729.4926 SP2
+   * v3.5 3.5.30729.4926 SP1
+   * v4 Client 4.8.09032
+   * v4 Full 4.8.09032
+   * v4.0 Client 4.0.0.0
+
+## Assemblies - PowerToys.PowerLauncher
+
+* System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e (C:\Users\lando\AppData\Local\PowerToys\System.Private.CoreLib.dll)
+* PowerToys.PowerLauncher, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.PowerLauncher.dll)
+* PresentationFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework.dll)
+* WindowsBase, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\WindowsBase.dll)
+* System.Runtime, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.dll)
+* System.Xaml, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Xaml.dll)
+* PowerToys.ManagedCommon, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.ManagedCommon.dll)
+* WinRT.Runtime, Version=2.2.0.0, Culture=neutral, PublicKeyToken=99ea127f02d97709 (C:\Users\lando\AppData\Local\PowerToys\WinRT.Runtime.dll)
+* System.Collections, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.dll)
+* System.Collections.Concurrent, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.Concurrent.dll)
+* Wox.Plugin, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\Wox.Plugin.dll)
+* PowerToys.GPOWrapperProjection, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.GPOWrapperProjection.dll)
+* System.Runtime.InteropServices, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.InteropServices.dll)
+* PowerToys.Common.UI, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.Common.UI.dll)
+* System.Threading.Thread, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.Thread.dll)
+* System.Text.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Text.Json.dll)
+* NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c (C:\Users\lando\AppData\Local\PowerToys\NLog.dll)
+* netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\netstandard.dll)
+* TestableIO.System.IO.Abstractions.Wrappers, Version=22.0.13.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59 (C:\Users\lando\AppData\Local\PowerToys\TestableIO.System.IO.Abstractions.Wrappers.dll)
+* Testably.Abstractions.FileSystem.Interface, Version=9.0.0.0, Culture=neutral, PublicKeyToken=f24346c8579fcb48 (C:\Users\lando\AppData\Local\PowerToys\Testably.Abstractions.FileSystem.Interface.dll)
+* System.IO.FileSystem.DriveInfo, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.FileSystem.DriveInfo.dll)
+* System.IO.FileSystem.Watcher, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.FileSystem.Watcher.dll)
+* System.Diagnostics.FileVersionInfo, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.FileVersionInfo.dll)
+* System.ComponentModel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.dll)
+* System.Threading, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.dll)
+* System.ComponentModel.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.Primitives.dll)
+* System.Net.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.Primitives.dll)
+* System.Net.Mail, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Net.Mail.dll)
+* System.Private.Uri, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Private.Uri.dll)
+* System.Linq, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Linq.dll)
+* System.ObjectModel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ObjectModel.dll)
+* System.Memory, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Memory.dll)
+* Wox.Infrastructure, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\Wox.Infrastructure.dll)
+* hyjiacan.py4n, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\hyjiacan.py4n.dll)
+* PowerToys.ManagedTelemetry, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.ManagedTelemetry.dll)
+* Microsoft.Win32.Registry, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Win32.Registry.dll)
+* System.Diagnostics.Tracing, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.Tracing.dll)
+* System.Diagnostics.DiagnosticSource, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.DiagnosticSource.dll)
+* System.IO.Packaging, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.Packaging.dll)
+* PresentationCore, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationCore.dll)
+* Microsoft.Win32.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Win32.Primitives.dll)
+* DirectWriteForwarder, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\DirectWriteForwarder.dll)
+* System.Runtime.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Extensions.dll)
+* System.Diagnostics.Debug, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.Debug.dll)
+* System.Runtime.CompilerServices.VisualC, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.CompilerServices.VisualC.dll)
+* System.Collections.NonGeneric, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.NonGeneric.dll)
+* System.Collections.Specialized, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.Specialized.dll)
+* System.Configuration.ConfigurationManager, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Configuration.ConfigurationManager.dll)
+* System.Xml.ReaderWriter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Xml.ReaderWriter.dll)
+* System.Private.Xml, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Private.Xml.dll)
+* System.Net.WebClient, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Net.WebClient.dll)
+* System.Text.Encoding.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Text.Encoding.Extensions.dll)
+* System.Numerics.Vectors, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Numerics.Vectors.dll)
+* System.Threading.ThreadPool, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.ThreadPool.dll)
+* System.Diagnostics.TraceSource, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.TraceSource.dll)
+* System.ComponentModel.TypeConverter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.TypeConverter.dll)
+* System.Windows.Extensions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Windows.Extensions.dll)
+* System.Net.Requests, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.Requests.dll)
+* System.Net.WebHeaderCollection, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.WebHeaderCollection.dll)
+* PresentationFramework.Fluent, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework.Fluent.dll)
+* System.Diagnostics.Process, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.Process.dll)
+* PresentationFramework.Aero2, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework.Aero2.dll)
+* System.Runtime.Loader, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Loader.dll)
+* System.Diagnostics.StackTrace, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Diagnostics.StackTrace.dll)
+* PowerToys.PowerLauncher.Telemetry, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.PowerLauncher.Telemetry.dll)
+* PowerToys.Settings.UI.Lib, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\PowerToys.Settings.UI.Lib.dll)
+* System.Text.Encodings.Web, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Text.Encodings.Web.dll)
+* System.Runtime.Intrinsics, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Intrinsics.dll)
+* System.Reflection.Emit.Lightweight, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Emit.Lightweight.dll)
+* System.Reflection.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Primitives.dll)
+* System.Reflection.Emit.ILGeneration, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Emit.ILGeneration.dll)
+* System.Text.RegularExpressions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Text.RegularExpressions.dll)
+* Microsoft.PowerToys.Run.Plugin.Calculator, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Calculator\Microsoft.PowerToys.Run.Plugin.Calculator.dll)
+* Microsoft.Plugin.Folder, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Folder\Microsoft.Plugin.Folder.dll)
+* System.Collections.Immutable, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Collections.Immutable.dll)
+* Microsoft.PowerToys.Run.Plugin.History, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\History\Microsoft.PowerToys.Run.Plugin.History.dll)
+* Microsoft.Plugin.Indexer, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Indexer\Microsoft.Plugin.Indexer.dll)
+* Microsoft.PowerToys.Run.Plugin.OneNote, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\OneNote\Microsoft.PowerToys.Run.Plugin.OneNote.dll)
+* Microsoft.PowerToys.Run.Plugin.PowerToys, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\PowerToys\Microsoft.PowerToys.Run.Plugin.PowerToys.dll)
+* Microsoft.Plugin.Program, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Program\Microsoft.Plugin.Program.dll)
+* Microsoft.Windows.SDK.NET, Version=10.0.22621.38, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Windows.SDK.NET.dll)
+* System.Threading.Overlapped, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.Overlapped.dll)
+* Microsoft.PowerToys.Run.Plugin.Registry, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Registry\Microsoft.PowerToys.Run.Plugin.Registry.dll)
+* Microsoft.PowerToys.Run.Plugin.Service, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Service\Microsoft.PowerToys.Run.Plugin.Service.dll)
+* System.ServiceProcess.ServiceController, Version=9.0.0.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ServiceProcess.ServiceController.dll)
+* Microsoft.Plugin.Shell, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Shell\Microsoft.Plugin.Shell.dll)
+* Microsoft.PowerToys.Run.Plugin.System, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\System\Microsoft.PowerToys.Run.Plugin.System.dll)
+* System.Net.NetworkInformation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Net.NetworkInformation.dll)
+* Microsoft.PowerToys.Run.Plugin.TimeDate, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\TimeDate\Microsoft.PowerToys.Run.Plugin.TimeDate.dll)
+* Community.PowerToys.Run.Plugin.UnitConverter, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\UnitConverter\Community.PowerToys.Run.Plugin.UnitConverter.dll)
+* Microsoft.Plugin.Uri, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\Uri\Microsoft.Plugin.Uri.dll)
+* Community.PowerToys.Run.Plugin.ValueGenerator, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\ValueGenerator\Community.PowerToys.Run.Plugin.ValueGenerator.dll)
+* System.Security.Cryptography, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Cryptography.dll)
+* Community.PowerToys.Run.Plugin.VSCodeWorkspaces, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\VSCodeWorkspaces\Community.PowerToys.Run.Plugin.VSCodeWorkspaces.dll)
+* System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Drawing.Common.dll)
+* System.Private.Windows.Core, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Private.Windows.Core.dll)
+* System.Drawing.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Drawing.Primitives.dll)
+* Community.PowerToys.Run.Plugin.WebSearch, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WebSearch\Community.PowerToys.Run.Plugin.WebSearch.dll)
+* Microsoft.PowerToys.Run.Plugin.WindowsSettings, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WindowsSettings\Microsoft.PowerToys.Run.Plugin.WindowsSettings.dll)
+* Microsoft.PowerToys.Run.Plugin.WindowsTerminal, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WindowsTerminal\Microsoft.PowerToys.Run.Plugin.WindowsTerminal.dll)
+* Microsoft.Plugin.WindowWalker, Version=0.91.1.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\RunPlugins\WindowWalker\Microsoft.Plugin.WindowWalker.dll)
+* UIAutomationTypes, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\UIAutomationTypes.dll)
+* UIAutomationProvider, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\UIAutomationProvider.dll)
+* Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Xaml.Behaviors.dll)
+* Microsoft.Win32.SystemEvents, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Win32.SystemEvents.dll)
+* System.ComponentModel.EventBasedAsync, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.ComponentModel.EventBasedAsync.dll)
+* Microsoft.Toolkit.Uwp.Notifications, Version=7.1.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2 (C:\Users\lando\AppData\Local\PowerToys\Microsoft.Toolkit.Uwp.Notifications.dll)
+* System.IO.FileSystem, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.IO.FileSystem.dll)
+* System.Security.Cryptography.Algorithms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Cryptography.Algorithms.dll)
+* System.Security.Cryptography.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Cryptography.Primitives.dll)
+* System.Reflection.Emit, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Emit.dll)
+* DynamicComActivator, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null (dynamic assembly doesn't has location)
+* System.Security.Principal.Windows, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Principal.Windows.dll)
+* System.Security.Claims, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Security.Claims.dll)
+* Mages.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null (C:\Users\lando\AppData\Local\PowerToys\Mages.Core.dll)
+* System.Runtime.Numerics, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Runtime.Numerics.dll)
+* System.IO.Pipelines, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.IO.Pipelines.dll)
+* System.Threading.Tasks.Parallel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Threading.Tasks.Parallel.dll)
+* System.Linq.Expressions, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Linq.Expressions.dll)
+* System.Linq.Parallel, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Linq.Parallel.dll)
+* System.Xml.XDocument, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Xml.XDocument.dll)
+* System.Private.Xml.Linq, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 (C:\Users\lando\AppData\Local\PowerToys\System.Private.Xml.Linq.dll)
+* System.Reflection.Metadata, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a (C:\Users\lando\AppData\Local\PowerToys\System.Reflection.Metadata.dll)
+* Accessibility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 (C:\Users\lando\AppData\Local\PowerToys\Accessibility.dll)
+* PresentationFramework-SystemXmlLinq, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\PresentationFramework-SystemXmlLinq.dll)
+* System.Xml.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Xml.Linq.dll)
+* System.Windows.Forms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Windows.Forms.dll)
+* System.Windows.Forms.Primitives, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089 (C:\Users\lando\AppData\Local\PowerToys\System.Windows.Forms.Primitives.dll)
+* System.Reactive, Version=6.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263 (C:\Users\lando\AppData\Local\PowerToys\System.Reactive.dll)
+
+
+[2025-05-28 16:15:54.8078] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.MinecraftJavaEdition_8wekyb3d8bbwe!Game can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.MinecraftJavaEdition_1.0.5.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 16:15:55.0328] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |Microsoft.4297127D64EC6_8wekyb3d8bbwe!Minecraft can't find logo uri for SmallLogo.png in package location: C:\Program Files\WindowsApps\Microsoft.4297127D64EC6_2.2.2.0_x64__8wekyb3d8bbwe
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------
+
+
+[2025-05-28 16:15:55.0761] [ERROR] [D:\a\_work\1\s\src\modules\launcher\Plugins\Microsoft.Plugin.Program\Programs\UWPApplication.cs::625]
+-------------------------- Begin exception --------------------------
+Message: 	Error status: KNOWN
+		Program path: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Exception thrown in called method: Not available
+		Possible interpretation of the error: |king.com.FarmHeroesSaga_kgqvnymyfvs32!App can't find logo uri for square44x44logo.png in package location: C:\Program Files\WindowsApps\king.com.FarmHeroesSaga_6.64.13.0_x64__kgqvnymyfvs32
+		Possible resolution: Can be ignored and PowerToys Run should still continue, however the program may not be loaded
+
+Exception full name  : System.IO.FileNotFoundException
+Exception message    : Unable to find the specified file.
+Exception stack trace:
+
+Exception source     : 
+Exception target site: 
+Exception HResult    : -2147024894
+-------------------------- End exception --------------------------",_No response_,"Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26100.0
+IntPtr Length: 8
+x64: True
+Date: 5/28/2025 4:15:46 PM
+Exception:
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnApplicationThemeChanged(ThemeMode oldThemeMode, ThemeMode newThemeMode)
+   at PowerLauncher.Helper.ThemeManager.SetSystemTheme(Theme theme)
+   at PowerLauncher.Helper.ThemeManager.<>c__DisplayClass14_0.<UpdateTheme>b__0()
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout)
+   at System.Windows.Threading.Dispatcher.Invoke(Action callback)
+   at PowerLauncher.Helper.ThemeManager.UpdateTheme()
+   at PowerLauncher.Helper.ThemeManager.OnUserPreferenceChanged(Object sender, UserPreferenceChangedEventArgs e)
+   at InvokeStub_UserPreferenceChangedEventHandler.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Delegate.DynamicInvokeImpl(Object[] args)
+   at Microsoft.Win32.SystemEvents.SystemEventInvokeInfo.InvokeCallback(Object arg)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)","win 11
+
+Microsoft.AspNetCore.App 8.0.7 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+Microsoft.NETCore.App 8.0.7 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+Microsoft.WindowsDesktop.App 8.0.7 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+
+English
+
+I installed Power Toys a couple of days ago, and the only problem is that I haven't learned all the commands yet. However, I just logged into my computer and received the attached message.
+
+![Image](https://github.com/user-attachments/assets/f3d2d471-6831-413f-bbd0-bc6853bd84ea)"
+39784,Changing hotkeys to WIN+Space does not work for Windows Command Palette,"Área: Command Palette. Problema: Changing hotkeys to WIN+Space does not work for Windows Command Palette. Comportamiento: Nothing happens.. Pasos para reproducir: 1. Change hotkey to WIN+Space.
+2. Attempt to use that hotkey.","Did you enable the ""low-level keyboard hook"" or not?","Issue-Bug,Needs-Author-Feedback,Product-Command Palette",0.91.1,WinGet,Command Palette,"1. Change hotkey to WIN+Space.
+2. Attempt to use that hotkey.",The Command Palette to appear when the hotkeys are hit.,Nothing happens.,Windows KB5058411 installed.
+39770,Hosts File Editor causes hosts entries to fail when comments include Japanese text,"Área: Hosts File Editor. Problema: Hosts File Editor causes hosts entries to fail when comments include Japanese text. Comportamiento: Ping fails with:
+Ping request could not find host example.test. Please check the name and try again.
+
+Removing the Japanese comment allows the entry to work as expected:
+127.0.0.1 example.test. Pasos para reproducir: 1. Open PowerToys → Hosts File Editor
+2. Add the following entry:
+127.0.0.1 example.test # Japanese comment（日本語でのコメント）
+3. Save and close Hosts File Editor
+4. Open Command Prompt and run:
+ping example.test",Fixed in 0.71 release of PowerToys. [aka.ms/installpowertoys](https://aka.ms/installpowertoys),"Issue-Bug,Needs-Triage",0.91.1,WinGet,Hosts File Editor,"1. Open PowerToys → Hosts File Editor
+2. Add the following entry:
+127.0.0.1 example.test # Japanese comment（日本語でのコメント）
+3. Save and close Hosts File Editor
+4. Open Command Prompt and run:
+ping example.test",example.test should resolve to 127.0.0.1 as defined in the hosts file.,"Ping fails with:
+Ping request could not find host example.test. Please check the name and try again.
+
+Removing the Japanese comment allows the entry to work as expected:
+127.0.0.1 example.test","- OS: Windows 11 Pro 22H2
+- System Language: Japanese
+- Hosts file encoding: ANSI
+- Edited via: PowerToys Hosts File Editor
+- Verified using: Command Prompt (ping), browser
+
+Note:
+The issue appears to stem from the use of non-ASCII (Japanese) characters in inline comments, which causes the OS to ignore the entire line."
+39734,Something went wrong,"Área: General. Problema: Something went wrong. Comportamiento: _No response_. Pasos para reproducir: Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26120.0
+IntPtr Length: 8
+x64: True
+Date: 2025/05/26 12:17:30
+Exception:
+System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",Reopening as we're still seeing reports :(,"Issue-Bug,Resolution-Duplicate",0.91.1,Microsoft Store,General,"Version: 0.91.1.0
+OS Version: Microsoft Windows NT 10.0.26120.0
+IntPtr Length: 8
+x64: True
+Date: 2025/05/26 12:17:30
+Exception:
+System.Runtime.InteropServices.COMException (0x80263001): {Desktop composition is disabled} The operation could not be completed because desktop composition is disabled. (0x80263001)
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)",_No response_,_No response_,_No response_
+39729,Taskbar icon not visible in light mode,"Área: Settings. Problema: Taskbar icon not visible in light mode. Comportamiento: ![Image](https://github.com/user-attachments/assets/6c07bcd0-4f66-43c8-9bf5-a830a9ae8046)
+
+**light** on light gray when in **Light** mode
+and
+**dark** on Dark gray in **Dark** mode.. Pasos para reproducir: 1. Open Windows **Settings** > **Personalization** > **Colors**.
+2. Set the theme to **Light**.
+3. Launch powertoys settings or any other window.
+4. Look at the taskbar buttons (Minimize, maximize, close) - White on light Gray","yeah, since you weren't the one who opened the issue the bot doesn't pick up your feedback to keep the issue alive. ","Issue-Bug,Resolution-Duplicate",0.91.1,Microsoft Store,Settings,"1. Open Windows **Settings** > **Personalization** > **Colors**.
+2. Set the theme to **Light**.
+3. Launch powertoys settings or any other window.
+4. Look at the taskbar buttons (Minimize, maximize, close) - White on light Gray","The icons should be **dark** on light gray when in **Light** mode
+and
+**light** on Dark gray in **Dark** mode.","![Image](https://github.com/user-attachments/assets/6c07bcd0-4f66-43c8-9bf5-a830a9ae8046)
+
+**light** on light gray when in **Light** mode
+and
+**dark** on Dark gray in **Dark** mode.",Windows 11
+39727,[Command Palette] Customized shortcuts don't work,"Área: Command Palette. Problema: [Command Palette] Customized shortcuts don't work. Comportamiento: Command Palette only respond when associate with the default shortcut. Pasos para reproducir: * use the default shortcut
+* Command Palette is launched
+* open Command Palette settings
+* change shortcut to whatever you want (in my case, I use ""Win+Space"", but I also tried ""Win+Ctrl+Space"")
+* use the shortcut
+* nothing happen
+* use the default shortcut
+* nothing happen
+* revert the shortcut to default
+* use the shortcut
+* Command Palette is launched
+
+[PowerToysReport_2025-05-26-10-16-21.zip](https://github.com/user-attachments/files/20437944/PowerToysReport_2025-05-26-10-16-21.zip)",Yea this definitely sounds like you didn't enable the low-level keyboard hook. Can you try enabling that and try again? ,"Issue-Bug,Needs-Triage,Needs-Team-Response,Product-Command Palette",0.91.1,PowerToys auto-update,Command Palette,"* use the default shortcut
+* Command Palette is launched
+* open Command Palette settings
+* change shortcut to whatever you want (in my case, I use ""Win+Space"", but I also tried ""Win+Ctrl+Space"")
+* use the shortcut
+* nothing happen
+* use the default shortcut
+* nothing happen
+* revert the shortcut to default
+* use the shortcut
+* Command Palette is launched
+
+[PowerToysReport_2025-05-26-10-16-21.zip](https://github.com/user-attachments/files/20437944/PowerToysReport_2025-05-26-10-16-21.zip)",Command Palette should respond when associated with a customized shortcut,Command Palette only respond when associate with the default shortcut,_No response_
+39711,Peek - always white background between photos.,"Área: Peek. Problema: Peek - always white background between photos.. Comportamiento: _No response_. Pasos para reproducir: Why not make a transition between photos without a white background? Even if with a delay. Eyes get very tired when the white background flashes when switching.
+Try to figure out how to make a transition between photos, but definitely not through white.
+
+
+And additional.. please add save as button, for save a photo.","Hi @dualjack. Thanks for your feedback, and I'm sorry this is taking some time to resolve. It was waiting behind some other work on Peek which would make the improvement easier to apply for _all_ previewers, not just the image previewer.
+
+However, I have thought for a while that it might just be best to submit the improvements which affect the image previewer first and leave the generic fix for a later date. This will help fix what I suspect is the most problematic instance of the flashing - where someone is quickly previewing files in an image folder.
+
+There are a couple of other changes which I'm working on at the moment, but I'll get to this as soon as I can.
+
+Thanks again.","Issue-Bug,Resolution-Duplicate",0.91.1,GitHub,Peek,"Why not make a transition between photos without a white background? Even if with a delay. Eyes get very tired when the white background flashes when switching.
+Try to figure out how to make a transition between photos, but definitely not through white.
+
+
+And additional.. please add save as button, for save a photo.",_No response_,_No response_,_No response_
+39701,"PowerToys Run ""ran into an issue""","Área: PowerToys Run. Problema: PowerToys Run ""ran into an issue"". Comportamiento: Following text in a popup window:
+
+
+Version: 0.90.1.0
+OS Version: Microsoft Windows NT 10.0.26120.0
+IntPtr Length: 8
+x64: True
+Date: 24/05/2025 7ha:52:53 pm
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler). Pasos para reproducir: After the computer woke from sleep, a dialog appeared saying ""Something went wrong"" and to file a bug report.","@cinnamon-msft you think this thing I fixed in Terminal would fix the same thing here?
+
+https://github.com/microsoft/terminal/pull/3460
+
+That was literally three children ago, so I don't remember the details, but that _looks_ similar","Issue-Bug,Resolution-Duplicate",0.90.1.0,"Microsoft Store, PowerToys auto-update",PowerToys Run,"After the computer woke from sleep, a dialog appeared saying ""Something went wrong"" and to file a bug report.",_No response_,"Following text in a popup window:
+
+
+Version: 0.90.1.0
+OS Version: Microsoft Windows NT 10.0.26120.0
+IntPtr Length: 8
+x64: True
+Date: 24/05/2025 7ha:52:53 pm
+Exception:
+System.Runtime.InteropServices.COMException (0xD0000701): 0xD0000701
+   at Standard.NativeMethods.DwmExtendFrameIntoClientArea(IntPtr hwnd, MARGINS& pMarInset)
+   at System.Windows.Appearance.WindowBackdropManager.UpdateGlassFrame(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.ApplyBackdrop(IntPtr hwnd, WindowBackdropType backdropType)
+   at System.Windows.Appearance.WindowBackdropManager.SetBackdrop(Window window, WindowBackdropType backdropType)
+   at System.Windows.ThemeManager.ApplyStyleOnWindow(Window window, Boolean useLightColors)
+   at System.Windows.ThemeManager.OnSystemThemeChanged()
+   at System.Windows.SystemResources.SystemThemeFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)","The dialog suggested to include this log file:
+
+[2025-05-24.txt](https://github.com/user-attachments/files/20421838/2025-05-24.txt)"

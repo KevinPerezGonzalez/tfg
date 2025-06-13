@@ -9,13 +9,13 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS # Para permitir peticiones desde el frontend de React
 
 # --- CONFIGURACIÓN ---
-# Elige UN modelo para que esta API lo sirva.
+# Selección de modelo para que esta API lo sirva.
 # El índice FAISS y los metadatos deben corresponder a este modelo.
-CHOSEN_MODEL_NAME = 'sentence-t5-base' # Modelo por defecto para la API
+CHOSEN_MODEL_NAME = 'sentence-t5-base'
 SANITIZED_MODEL_NAME = CHOSEN_MODEL_NAME.replace('/', '_').replace('-', '_')
 INDEX_FILENAME = f"support_cases_faiss_{SANITIZED_MODEL_NAME}.index"
 METADATA_FILENAME_GLOBAL = "support_cases_metadata_GLOBAL.json"
-SOURCE_DATA_FILE = "customer-support-tickets-en-derfinitivo.csv" # Necesario si los metadatos no existen
+SOURCE_DATA_FILE = "customer-support-tickets-en-definitivo.csv" # Necesario si los metadatos no existen
 
 app = Flask(__name__)
 CORS(app) # Habilita CORS para todas las rutas
@@ -25,7 +25,7 @@ embedding_model_global = None
 index_global = None
 metadata_store_global = None
 
-# --- Función de Ayuda para Cargar Datos (similar a la anterior) ---
+# --- Función de Ayuda para Cargar Datos ---
 def load_and_prepare_data_for_api(source_file, metadata_file_path):
     current_df = None
     current_metadata_store = None
@@ -35,7 +35,6 @@ def load_and_prepare_data_for_api(source_file, metadata_file_path):
         with open(metadata_file_path, 'r', encoding='utf-8') as f:
             current_metadata_store = json.load(f)
         print(f"Metadatos cargados: {len(current_metadata_store)} casos.")
-        # Si necesitas df para alguna otra cosa, cárgalo. Aquí solo para crear metadatos si no existen.
     else:
         print(f"Archivo de metadatos {metadata_file_path} no encontrado. Creándolo desde {source_file}...")
         try:
@@ -110,7 +109,7 @@ def load_resources():
         index_global = None
         metadata_store_global = None
 
-# --- FUNCIÓN DE BÚSQUEDA (Reutilizada y adaptada) ---
+# --- FUNCIÓN DE BÚSQUEDA ---
 def search_similar_cases_api(query_text, k_results=5):
     if not embedding_model_global or not index_global or not metadata_store_global:
         print("Error: Recursos (modelo, índice o metadatos) no cargados en la API.")
