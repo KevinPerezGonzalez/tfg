@@ -1,6 +1,5 @@
 import os
 import re
-import time
 from datetime import datetime, timedelta
 import pandas as pd
 from github import Github, RateLimitExceededException
@@ -13,8 +12,6 @@ TIMESTAMP_FILE = "powertoys_structured_last_update.txt"
 SOURCE_DATA_FILE = "powertoys_structured_tickets.csv"
 
 # --- FUNCIONES DE AYUDA ---
-
-import re
 
 def parse_powertoys_issue_body(body_text):
     """
@@ -86,6 +83,86 @@ def get_solution_from_issue(issue):
         return max(collaborator_comments, key=lambda c: c.created_at).body
     return None
 
+def find_final_solution(issue, repo, visited=None, max_hops=3):
+    """
+    Busca una solución de forma recursiva con la lógica de prioridad correcta y de forma eficiente.
+    """
+    if visited is None:
+        visited = set()
+
+    if issue.number in visited or len(visited) >= max_hops:
+        # Imprime solo si se alcanza el límite, no en visitas normales
+        #if len(visited) >= max_hops:
+            #print(f"  -> Límite de {max_hops} saltos alcanzado al procesar la issue #{issue.number} o se ha encontrado un bucle. Deteniendo esta cadena.")
+        return None
+
+    visited.add(issue.number)
+
+    try:
+        # Mejora de eficiencia: Obtener todos los comentarios UNA SOLA VEZ.
+        all_comments = list(issue.get_comments())
+    except Exception as e:
+        print(f"    Advertencia: No se pudieron obtener comentarios para la issue #{issue.number}: {e}")
+        return None
+
+    # --- RECOLECCIÓN DE PISTAS ---
+    canonical_issue_num = None
+    bot_linked_issue_num = None
+    latest_human_answer = None
+
+    # Iterar para encontrar las pistas de 'dup' y del 'bot'
+    for comment in all_comments:
+        # Pista de duplicado (si aún no la hemos encontrado)
+        if not canonical_issue_num:
+            dup_match = re.search(r'(?i)\s*\/?\s*dup(?:licate)?(?: of)?\s*#(\d+)', comment.body)
+            if dup_match:
+                canonical_issue_num = int(dup_match.group(1))
+        
+        # Pista del bot (si aún no la hemos encontrado)
+        if not bot_linked_issue_num and comment.user.login == 'similar-issues-ai[bot]':
+            linked_issues = parse_bot_comment(comment.body)
+            if linked_issues:
+                bot_linked_issue_num, _ = linked_issues[0]
+
+    # Iterar en orden inverso (del más nuevo al más viejo) para encontrar la respuesta humana más reciente
+    # que NO sea un simple comentario de duplicado.
+    for comment in reversed(all_comments):
+        if comment.author_association in ['COLLABORATOR', 'MEMBER', 'OWNER']:
+            # Comprobar que este comentario no sea el que marca el duplicado
+            if not re.search(r'(?i)\s*\/?\s*dup(?:licate)?(?: of)?\s*#(\d+)', comment.body):
+                latest_human_answer = comment.body
+                break # Encontramos la respuesta humana más reciente y válida
+
+    # --- ÁRBOL DE DECISIÓN BASADO EN PRIORIDADES ---
+
+    # Prioridad 1: Seguir la pista del duplicado
+    if canonical_issue_num:
+        #print(f"  -> P1: Issue #{issue.number} es dup de #{canonical_issue_num}. Siguiendo pista...")
+        try:
+            next_issue = repo.get_issue(number=canonical_issue_num)
+            return find_final_solution(next_issue, repo, visited, max_hops)
+        except Exception as e:
+            print(f"    No se pudo obtener la issue canónica #{canonical_issue_num}: {e}")
+            return None
+
+    # Prioridad 2: Seguir la pista del bot de IA
+    if bot_linked_issue_num:
+        #print(f"  -> P2: Issue #{issue.number} es similar a #{bot_linked_issue_num}. Siguiendo pista...")
+        try:
+            next_issue = repo.get_issue(number=bot_linked_issue_num)
+            return find_final_solution(next_issue, repo, visited, max_hops)
+        except Exception as e:
+            print(f"    No se pudo obtener la issue similar #{bot_linked_issue_num}: {e}")
+            return None
+    
+    # Prioridad 3: Usar la respuesta humana directa como último recurso
+    if latest_human_answer:
+        #print(f"  -> P3: Respuesta humana directa encontrada en la issue #{issue.number}.")
+        return (latest_human_answer, issue.number)
+            
+    # Si ninguna estrategia funcionó
+    return None
+
 # --- FUNCIÓN PRINCIPAL DE ACTUALIZACIÓN ---
 
 def fetch_and_update_issues():
@@ -149,47 +226,17 @@ def fetch_and_update_issues():
     
     for i, issue in enumerate(closed_issues):
 
-        if i >= 50:
-            print("\nLímite de 50 issues alcanzado para la prueba. Deteniendo el procesamiento.")
-            break
-
         if (i + 1) % 50 == 0:
             print(f"  ... procesadas {i + 1} issues ...")
         
         try:
-            answer = None
-            canonical_issue_num = None
 
-            for comment in issue.get_comments():
-                # Expresión regular para buscar patrones de duplicados
-                match = re.search(r'(?i)\s*\/?\s*dup(?:licate)?(?: of)?\s*#(\d+)', comment.body, re.IGNORECASE)
-                if match:
-                    canonical_issue_num = int(match.group(1))
-                    print(f"  Issue #{issue.number} es un duplicado de #{canonical_issue_num}. Buscando solución allí.")
-                    break # Encontramos la pista, no necesitamos más comentarios de esta issue
-
-            target_issue = issue # Por defecto, buscamos la solución en la issue actual
-            if canonical_issue_num:
-                try:
-                    # Si es un duplicado, el objetivo ahora es la issue original
-                    target_issue = repo.get_issue(number=canonical_issue_num)
-                except Exception as e:
-                    print(f"    No se pudo obtener la issue canónica #{canonical_issue_num}: {e}")
-                    target_issue = issue # Volvemos a la original si falla
-
-            answer = get_solution_from_issue(target_issue)
-            if not answer:
-                for comment in issue.get_comments():
-                    if comment.user.login == 'similar-issues-ai':
-                        linked_issues = parse_bot_comment(comment.body)
-                        if linked_issues:
-                            most_similar_issue_num, score = linked_issues[0]
-                            # print(f"  Issue #{issue.number}: Saltando a la más similar: #{most_similar_issue_num}")
-                            linked_issue = repo.get_issue(number=most_similar_issue_num)
-                            answer = get_solution_from_issue(linked_issue)
-                        break
+            result_tuple = find_final_solution(issue, repo, visited=set())
             
-            if answer:
+            if result_tuple:
+
+                #print(f"  -> ÉXITO: Solución encontrada para la issue #{issue.number}. Guardando datos.")
+
                 # 1. Parsear el cuerpo de la issue para extraer los campos estructurados
                 parsed_body = parse_powertoys_issue_body(issue.body)
 
@@ -207,7 +254,9 @@ def fetch_and_update_issues():
                     'Ticket ID': issue.number,
                     'subject': title,
                     'problem_text': high_quality_problem_text, # Usamos el texto de alta calidad
-                    'answer': answer,
+                    'answer': result_tuple[0],
+                    'answer_source_id': result_tuple[1],
+                    'is_direct_answer': issue.number == result_tuple[1],
                     'tags': ",".join([label.name for label in issue.labels]),
                     'powertoys_version': parsed_body.get('version'),
                     'install_method': parsed_body.get('install_method'),
@@ -220,6 +269,9 @@ def fetch_and_update_issues():
                 new_data.append(new_entry)
                 
                 issues_processed_count += 1
+            #else:
+                # Si, después de todas las comprobaciones, no se encontró respuesta, lo informamos.
+                #print(f"  - INFO: No se encontró ninguna solución procesable para la issue #{issue.number} después de seguir todas las pistas.")
 
         except RateLimitExceededException:
             print(f"Límite de la API alcanzado procesando issue #{issue.number}. Deteniendo por ahora.")
