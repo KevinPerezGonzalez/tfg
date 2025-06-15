@@ -1,0 +1,128 @@
+/* src/App.css */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  padding: 20px;
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.container {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #2c3e50;
+}
+h1 {
+  margin-bottom: 30px;
+}
+h2 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.search-button {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #2980b9;
+}
+
+.search-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.results-area {
+  margin-top: 20px;
+}
+
+.result-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fdfdfd;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.result-item h3 {
+  margin-top: 0;
+  color: #3498db;
+  font-size: 1.2em;
+}
+
+.result-item p {
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+
+.result-item strong {
+  color: #2c3e50;
+}
+
+.tags {
+  margin-top: 10px;
+}
+.tag-item {
+  display: inline-block;
+  background-color: #ecf0f1;
+  color: #7f8c8d;
+  padding: 3px 8px;
+  border-radius: 12px; /* Cápsula */
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 0.85em;
+}
+
+.error-message {
+  color: #e74c3c;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #fdd;
+  border: 1px solid #fbb;
+  border-radius: 4px;
+}
+
+.loading-message, .no-results-message {
+  text-align: center;
+  color: #777;
+  font-size: 1.1em;
+  padding: 20px;
+}

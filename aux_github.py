@@ -1,15 +1,29 @@
+import json
 import os
 import re
+import time
 from datetime import datetime, timedelta
+import faiss
+import numpy as np
 import pandas as pd
 from github import Github, RateLimitExceededException
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
+from sentence_transformers import SentenceTransformer
 
 # --- CONFIGURACIÓN ---
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 REPO_NAME = "microsoft/PowerToys"
+
+# Lista de modelos para los que se generarán/actualizarán los índices
+MODELS_TO_PROCESS = [
+    'sentence-t5-base',
+]
+
+# Nombres de archivos de salida
+SOURCE_DATA_FILE = "powertoys_structured_tickets.csv" # El CSV que se actualiza
 TIMESTAMP_FILE = "powertoys_structured_last_update.txt"
-SOURCE_DATA_FILE = "powertoys_structured_tickets.csv"
+METADATA_FILENAME_GLOBAL = "powertoys_metadata_GLOBAL.json" # El JSON para la API
+
 
 # --- FUNCIONES DE AYUDA ---
 
@@ -165,9 +179,10 @@ def find_final_solution(issue, repo, visited=None, max_hops=3):
 
 # --- FUNCIÓN PRINCIPAL DE ACTUALIZACIÓN ---
 
-def fetch_and_update_issues():
+def update_csv_from_github():
     """
-    Función principal que se ejecutará periódicamente, con la nueva lógica de extracción.
+    Obtiene datos de GitHub y actualiza el archivo CSV.
+    Devuelve True si se añadieron nuevos datos, False en caso contrario.
     """
     print(f"[{datetime.now()}] Iniciando actualización desde '{REPO_NAME}'...")
 
@@ -269,9 +284,6 @@ def fetch_and_update_issues():
                 new_data.append(new_entry)
                 
                 issues_processed_count += 1
-            #else:
-                # Si, después de todas las comprobaciones, no se encontró respuesta, lo informamos.
-                #print(f"  - INFO: No se encontró ninguna solución procesable para la issue #{issue.number} después de seguir todas las pistas.")
 
         except RateLimitExceededException:
             print(f"Límite de la API alcanzado procesando issue #{issue.number}. Deteniendo por ahora.")
@@ -284,32 +296,134 @@ def fetch_and_update_issues():
 
     if new_data:
         new_df = pd.DataFrame(new_data)
+        # Guardamos el CSV igualmente para tener un registro completo y persistente
         if os.path.exists(SOURCE_DATA_FILE):
-            print(f"Añadiendo nuevos datos a {SOURCE_DATA_FILE}...")
             existing_df = pd.read_csv(SOURCE_DATA_FILE)
             combined_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['Ticket ID'], keep='last')
             combined_df.to_csv(SOURCE_DATA_FILE, index=False, encoding='utf-8-sig')
-            print(f"Base de datos actualizada. Total de filas ahora: {len(combined_df)}")
         else:
-            print(f"Creando nuevo archivo de datos {SOURCE_DATA_FILE}...")
             new_df.to_csv(SOURCE_DATA_FILE, index=False, encoding='utf-8-sig')
-            print(f"Base de datos creada. Total de filas: {len(new_df)}")
+
+        with open(TIMESTAMP_FILE, 'w') as f:
+                f.write(datetime.now().isoformat())
+        print(f"Nueva fecha de actualización guardada en {TIMESTAMP_FILE}.")
+            
+        return new_df # <-- Devolvemos solo el DataFrame con los nuevos datos
+    else:
+        print("No se encontraron nuevas issues procesables. El archivo CSV está actualizado.")
+
+        with open(TIMESTAMP_FILE, 'w') as f:
+            f.write(datetime.now().isoformat())
+        print(f"Nueva fecha de actualización guardada en {TIMESTAMP_FILE}.")
+
+        return None # <-- Devolvemos None si no hay nada nuevo
+
+def update_artifacts_incrementally(new_data_df, models_list, metadata_json_path):
+    """
+    Actualiza los metadatos y los índices FAISS de forma incremental.
+    Si no existen, los crea desde cero.
+    """
+    print(f"\n[{datetime.now()}] Iniciando Fase 2: Generación de artefactos (índices y metadatos)...")
+    if new_data_df is None or new_data_df.empty:
+        print("No hay nuevos datos para añadir a los índices. Proceso finalizado.")
+        return
+
+    # Preparar los nuevos textos y metadatos
+    new_texts_to_embed = new_data_df['problem_text'].fillna('').tolist()
+    new_metadata = new_data_df.to_dict('records')
+
+    for model_name in models_list:
+        print(f"\n--- Procesando artefactos para el modelo: {model_name} ---")
+        sanitized_model_name = model_name.replace('/', '_').replace('-', '_')
+        index_filename = f"faiss_index_{sanitized_model_name}.index"
+
+        try:
+            print("Cargando modelo de embedding...")
+            model = SentenceTransformer(model_name)
+
+            # Generar embeddings SOLO para los datos nuevos
+            print(f"Generando {len(new_texts_to_embed)} nuevos embeddings...")
+            new_embeddings = model.encode(new_texts_to_embed, show_progress_bar=True, batch_size=32)
+            if new_embeddings.dtype != np.float32:
+                new_embeddings = new_embeddings.astype(np.float32)
+            faiss.normalize_L2(new_embeddings)
+
+            # Lógica para crear o actualizar el índice y los metadatos
+            if os.path.exists(index_filename) and os.path.exists(metadata_json_path):
+                # --- LÓGICA DE ACTUALIZACIÓN ---
+                print(f"Cargando índice existente desde {index_filename}...")
+                index = faiss.read_index(index_filename)
+                
+                print(f"Cargando metadatos existentes desde {metadata_json_path}...")
+                with open(metadata_json_path, 'r', encoding='utf-8') as f:
+                    metadata_store = json.load(f)
+
+                # Añadir los nuevos datos
+                index.add(new_embeddings)
+                metadata_store.extend(new_metadata)
+
+                print(f"Índice actualizado. Total de vectores ahora: {index.ntotal}")
+                print(f"Metadatos actualizados. Total de entradas ahora: {len(metadata_store)}")
+            else:
+                # --- LÓGICA DE CREACIÓN (Primera ejecución) ---
+                print("No se encontraron artefactos existentes. Creándolos desde cero...")
+                d = new_embeddings.shape[1]
+                index = faiss.IndexFlatIP(d)
+                index.add(new_embeddings)
+                metadata_store = new_metadata
+                print(f"Artefactos creados. Total vectores: {index.ntotal}, Total metadatos: {len(metadata_store)}")
+
+            # Guardar los artefactos actualizados/creados
+            faiss.write_index(index, index_filename)
+            with open(metadata_json_path, 'w', encoding='utf-8') as f:
+                json.dump(metadata_store, f, ensure_ascii=False, indent=4)
+            print(f"Índice y metadatos para '{model_name}' guardados con éxito.")
+
+        except Exception as e:
+            print(f"Error procesando el modelo '{model_name}': {e}")
+            continue
+
+# --- FUNCIÓN ORQUESTADORA PRINCIPAL ---
+def run_complete_pipeline():
+    """
+    Orquesta todo el proceso: actualizar CSV y luego regenerar artefactos si es necesario.
+    """
+    print(f"\n{'='*20} INICIANDO CICLO DE ACTUALIZACIÓN COMPLETO {'='*20}")
     
-    with open(TIMESTAMP_FILE, 'w') as f:
-        f.write(datetime.now().isoformat())
-    print(f"Nueva fecha de actualización guardada en {TIMESTAMP_FILE}.")
+    # Fase 1: Obtener nuevos datos y actualizar el CSV
+    new_data_df = update_csv_from_github()
+    
+    # Fase 2: Actualizar índices y metadatos solo si hubo datos nuevos
+    if new_data_df is not None and not new_data_df.empty:
+        update_artifacts_incrementally(
+            new_data_df=new_data_df,
+            models_list=MODELS_TO_PROCESS,
+            metadata_json_path=METADATA_FILENAME_GLOBAL
+        )
+    else:
+        print(f"\n[{datetime.now()}] Fase 2 Omitida: No hay datos nuevos, los índices están al día.")
+        
+    print(f"\n{'='*20} CICLO DE ACTUALIZACIÓN FINALIZADO {'='*20}")
 
 # --- Programador de Tareas ---
 if __name__ == "__main__":
-    fetch_and_update_issues() 
+    # La función que se programa ahora es la orquestadora principal
+    run_complete_pipeline() 
     
-    scheduler = BlockingScheduler()
-    scheduler.add_job(fetch_and_update_issues, 'interval', hours=24)
+    scheduler = BackgroundScheduler(timezone="Europe/Madrid")
+    scheduler.add_job(run_complete_pipeline, 'interval', hours=24)
+    scheduler.start() # Inicia el scheduler en un hilo secundario
     
     print("\nProgramador iniciado. La próxima actualización se ejecutará en 24 horas.")
-    print("Mantén este script corriendo para que la automatización funcione. Presiona Ctrl+C para salir.")
+    print("El script se mantendrá activo en segundo plano. Presiona Ctrl+C para salir.")
     
+    # --- CAMBIO 3: Bucle principal que mantiene vivo el script y es interrumpible ---
     try:
-        scheduler.start()
+        # Este bucle mantiene el script principal vivo, esperando una interrupción
+        while True:
+            time.sleep(1) # Duerme por un segundo, lo que permite que Ctrl+C lo interrumpa
     except (KeyboardInterrupt, SystemExit):
-        pass
+        # Cuando se presiona Ctrl+C, se captura la excepción aquí
+        print("\nDeteniendo el programador...")
+        scheduler.shutdown() # Apaga el scheduler de forma limpia
+        print("Programador detenido. Saliendo.")
