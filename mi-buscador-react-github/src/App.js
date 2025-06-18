@@ -31,14 +31,26 @@ function App() {
     setSearchedQuery(query); // Guarda la consulta que se está buscando
 
     try {
-      // Asegurar de que el servidor Flask (app.py) está corriendo
       const response = await axios.get(API_URL, {
         params: { query: query }
       });
-      setResults(response.data);
+
+      // Verificamos si la respuesta es realmente un array antes de actualizar el estado.
+      if (response.data && Array.isArray(response.data)) {
+        setResults(response.data);
+      } else {
+        // Si la API devuelve algo que no es un array (un objeto, null, etc.),
+        // lo tratamos como un error para no romper la aplicación.
+        console.error("La respuesta de la API no es un array:", response.data);
+        setError("Se recibió una respuesta inesperada del servidor.");
+        setResults([]); // Nos aseguramos de que 'results' siga siendo un array vacío.
+      }
+      
     } catch (err) {
-      console.error("Error fetching search results:", err);
-      setError(err.response?.data?.error || "Error al conectar con el servidor de búsqueda. Asegúrate de que está activo.");
+      // 3. MANEJO DE ERRORES DE RED O HTTP
+      console.error("Error en la llamada a la API:", err);
+      setError(err.response?.data?.error || "Error al conectar con el servidor de búsqueda.");
+      setResults([]); // Aquí también, nos aseguramos de que 'results' sea un array.
     } finally {
       setIsLoading(false);
     }
@@ -46,7 +58,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Buscador de Casos de Soporte Similares (React)</h1>
+      <h1>Buscador de Issues Similares (PowerToys)</h1>
 
       <form onSubmit={handleSubmit} className="search-form">
         <input
@@ -69,28 +81,41 @@ function App() {
 
       <div className="results-area">
         {isLoading && <p className="loading-message">Cargando resultados...</p>}
-
+        
         {!isLoading && results.length > 0 && results.map((result, index) => (
           <div key={result.doc_id_internal || index} className="result-item">
             <h3>{result.subject}</h3>
-            <p>
-              <strong>ID Original:</strong> {result.original_ticket_id} | 
-              <strong> ID Interno:</strong> {result.doc_id_internal} | 
-              <strong> Score:</strong> {result.score.toFixed(4)}
-            </p>
+            
+            <div className="metadata-grid">
+                <span><strong>Ticket ID:</strong> {result.original_ticket_id}</span>
+                <span><strong>Score:</strong> {result.score.toFixed(4)}</span>
+                <span><strong>Área:</strong> {result.area}</span>
+                <span><strong>Versión:</strong> {result.powertoys_version}</span>
+            </div>
+
             {result.tags && result.tags.length > 0 && (
-              <p className="tags">
+              <div className="tags">
                 <strong>Tags:</strong>
                 {result.tags.map((tag, i) => (
                   <span key={i} className="tag-item">{tag}</span>
                 ))}
-              </p>
+              </div>
             )}
-            <p><strong>Respuesta / Solución:</strong><br />{result.answer}</p>
+            
+            <div className="behavior-section">
+                <h4>Comportamiento Actual</h4>
+                <p>{result.actual_behavior || "No detallado."}</p>
+            </div>
+            
+            <div className="solution-section">
+                <h4>Solución Encontrada (de issue #{result.answer_source_id})</h4>
+                <pre className="answer-box">{result.answer}</pre>
+            </div>
+
           </div>
         ))}
         {!isLoading && results.length === 0 && searchedQuery && !error && (
-          <p className="no-results-message">No se encontraron resultados similares para tu consulta.</p>
+          <p className="no-results-message">No se encontraron resultados similares.</p>
         )}
       </div>
     </div>

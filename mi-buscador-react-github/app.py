@@ -13,9 +13,9 @@ from flask_cors import CORS # Para permitir peticiones desde el frontend de Reac
 # El índice FAISS y los metadatos deben corresponder a este modelo.
 CHOSEN_MODEL_NAME = 'sentence-t5-base'
 SANITIZED_MODEL_NAME = CHOSEN_MODEL_NAME.replace('/', '_').replace('-', '_')
-INDEX_FILENAME = f"support_cases_faiss_{SANITIZED_MODEL_NAME}.index"
-METADATA_FILENAME_GLOBAL = "support_cases_metadata_GLOBAL.json"
-SOURCE_DATA_FILE = "customer-support-tickets-en-definitivo.csv" # Necesario si los metadatos no existen
+INDEX_FILENAME = f"faiss_index_{SANITIZED_MODEL_NAME}.index"
+METADATA_FILENAME_GLOBAL = "powertoys_metadata_GLOBAL.json"
+SOURCE_DATA_FILE = "powertoys_structured_tickets.csv" # Necesario si los metadatos no existen
 
 app = Flask(__name__)
 CORS(app) # Habilita CORS para todas las rutas
@@ -39,6 +39,7 @@ def load_and_prepare_data_for_api(source_file, metadata_file_path):
         print(f"Archivo de metadatos {metadata_file_path} no encontrado. Creándolo desde {source_file}...")
         try:
             current_df = pd.read_csv(source_file)
+            current_df = current_df.replace({np.nan: None})
             if 'problem_text' not in current_df.columns:
                 if 'subject' in current_df.columns and 'body' in current_df.columns:
                     current_df['problem_text'] = current_df['subject'].fillna('') + ' ' + current_df['body'].fillna('')
@@ -110,6 +111,7 @@ def load_resources():
         metadata_store_global = None
 
 # --- FUNCIÓN DE BÚSQUEDA ---
+
 def search_similar_cases_api(query_text, k_results=5):
     if not embedding_model_global or not index_global or not metadata_store_global:
         print("Error: Recursos (modelo, índice o metadatos) no cargados en la API.")
@@ -119,9 +121,9 @@ def search_similar_cases_api(query_text, k_results=5):
         query_embedding_norm = np.copy(query_embedding)
         faiss.normalize_L2(query_embedding_norm.reshape(1, -1))
         query_vector = query_embedding_norm.reshape(1, -1)
-        
+
         distances, indices = index_global.search(query_vector, k_results)
-        
+
         results = []
         if indices.size == 0 or (len(indices[0]) > 0 and indices[0][0] == -1) : return results
 
@@ -131,15 +133,27 @@ def search_similar_cases_api(query_text, k_results=5):
             if 0 <= result_index < len(metadata_store_global):
                 similarity_score = distances[0][i]
                 retrieved_metadata = metadata_store_global[result_index]
+
+                # --- INICIO DE LA MODIFICACIÓN ---
+                # Añadimos todos los campos nuevos y estructurados a la respuesta
                 results.append({
                     'doc_id_internal': retrieved_metadata.get('doc_id_internal', result_index),
-                    'original_ticket_id': retrieved_metadata.get('original_ticket_id', 'N/A'),
-                    'score': float(similarity_score), # Asegurar que es float para JSON
+                    'original_ticket_id': retrieved_metadata.get('Ticket ID', 'N/A'), # Usar 'Ticket ID' que es el nombre de la columna
+                    'answer_source_id': retrieved_metadata.get('answer_source_id', 'N/A'),
+                    'is_direct_answer': retrieved_metadata.get('is_direct_answer', True),
+                    'score': float(similarity_score),
                     'subject': retrieved_metadata.get('subject', 'N/A'),
-                    'body': retrieved_metadata.get('body', 'N/A'),
                     'answer': retrieved_metadata.get('answer', 'N/A'),
-                    'tags': retrieved_metadata.get('tags', [])
+                    'tags': retrieved_metadata.get('tags', []),
+                    # Nuevos campos parseados de PowerToys
+                    'area': retrieved_metadata.get('area', 'No especificada'),
+                    'powertoys_version': retrieved_metadata.get('powertoys_version', 'No especificada'),
+                    'install_method': retrieved_metadata.get('install_method', 'No especificado'),
+                    'actual_behavior': retrieved_metadata.get('actual_behavior', ''),
+                    'expected_behavior': retrieved_metadata.get('expected_behavior', ''),
+                    'steps_to_reproduce': retrieved_metadata.get('steps_to_reproduce', '')
                 })
+                # --- FIN DE LA MODIFICACIÓN ---
             else:
                  print(f"Advertencia: Índice FAISS {result_index} fuera de rango para metadatos.")
         return results
