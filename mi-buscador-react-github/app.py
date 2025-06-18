@@ -3,10 +3,10 @@ import os
 import faiss
 import json
 import numpy as np
-import pandas as pd # Necesario para la función load_and_prepare_data
+import pandas as pd
 from sentence_transformers import SentenceTransformer
-from flask import Flask, request, jsonify
-from flask_cors import CORS # Para permitir peticiones desde el frontend de React
+from flask import Flask, request, jsonify, Response 
+from flask_cors import CORS # Permite solicitudes CORS
 
 # --- CONFIGURACIÓN ---
 # Selección de modelo para que esta API lo sirva.
@@ -27,56 +27,44 @@ metadata_store_global = None
 
 # --- Función de Ayuda para Cargar Datos ---
 def load_and_prepare_data_for_api(source_file, metadata_file_path):
-    current_df = None
-    current_metadata_store = None
-    
     if os.path.exists(metadata_file_path):
-        print(f"Cargando metadatos globales desde {metadata_file_path}...")
+        print(f"Cargando metadatos existentes desde {metadata_file_path}...")
         with open(metadata_file_path, 'r', encoding='utf-8') as f:
-            current_metadata_store = json.load(f)
-        print(f"Metadatos cargados: {len(current_metadata_store)} casos.")
-    else:
-        print(f"Archivo de metadatos {metadata_file_path} no encontrado. Creándolo desde {source_file}...")
-        try:
-            current_df = pd.read_csv(source_file)
-            current_df = current_df.replace({np.nan: None})
-            if 'problem_text' not in current_df.columns:
-                if 'subject' in current_df.columns and 'body' in current_df.columns:
-                    current_df['problem_text'] = current_df['subject'].fillna('') + ' ' + current_df['body'].fillna('')
-                else:
-                    raise ValueError("Columnas 'subject'/'body' no encontradas para crear 'problem_text'")
+            return json.load(f)
+    
+    print(f"Archivo de metadatos no encontrado. Creándolo desde {source_file}...")
+    try:
+        df = pd.read_csv(source_file)
+        
+        # --- CORRECCIÓN CLAVE: Reemplazar NaN por None antes de cualquier otra cosa ---
+        df = df.replace({np.nan: None})
+        
+        # Preprocesamiento de tags por si vienen como string
+        if 'tags' in df.columns and df['tags'].notna().any() and isinstance(df['tags'].dropna().iloc[0], str):
+            df['tags'] = df['tags'].apply(
+                lambda x: [tag.strip() for tag in x.split(',')] if isinstance(x, str) else []
+            )
 
-            if 'tags' in current_df.columns and current_df['tags'].notna().any() and isinstance(current_df['tags'].dropna().iloc[0], str):
-                current_df['tags'] = current_df['tags'].fillna('').apply(
-                    lambda x: [tag.strip() for tag in x.split(',') if tag.strip()] if isinstance(x, str) else []
-                )
-            elif 'tags' not in current_df.columns:
-                current_df['tags'] = [[] for _ in range(len(current_df))]
-            
-            current_metadata_store = []
-            for i in range(len(current_df)):
-                row = current_df.iloc[i]
-                current_metadata_store.append({
-                    'doc_id_internal': i,
-                    'original_ticket_id': row.get('Ticket ID', row.get('id', i)),
-                    'subject': row.get('subject', 'N/A'),
-                    'body': row.get('body', 'N/A'),
-                    'answer': row.get('answer', 'N/A'),
-                    'tags': row.get('tags', [])
-                })
-            
-            with open(metadata_file_path, 'w', encoding='utf-8') as f:
-                json.dump(current_metadata_store, f, ensure_ascii=False, indent=4)
-            print(f"Metadatos globales guardados en {metadata_file_path}.")
+        # Convertir el DataFrame limpio a una lista de diccionarios
+        current_metadata_store = df.to_dict('records')
+        
+        # Asegurar que cada entrada tenga un ID interno
+        for i, record in enumerate(current_metadata_store):
+            record['doc_id_internal'] = i
 
-        except FileNotFoundError:
-            print(f"Error CRÍTICO: No se encontró el archivo de datos fuente: {source_file}")
-            return None
-        except Exception as e:
-            print(f"Error CRÍTICO al procesar DataFrame: {e}")
-            return None
-            
-    return current_metadata_store
+        # Guardar el archivo JSON limpio para futuras ejecuciones
+        with open(metadata_file_path, 'w', encoding='utf-8') as f:
+            json.dump(current_metadata_store, f, ensure_ascii=False, indent=4)
+        print(f"Metadatos guardados en {metadata_file_path}.")
+        
+        return current_metadata_store
+
+    except FileNotFoundError:
+        print(f"Error CRÍTICO: No se encontró el archivo de datos fuente: {source_file}")
+        return None
+    except Exception as e:
+        print(f"Error CRÍTICO al procesar DataFrame: {e}")
+        return None
 
 # --- CARGAR RECURSOS UNA SOLA VEZ AL INICIO ---
 def load_resources():
@@ -187,11 +175,10 @@ def health_check():
         }), 200
     else:
         return jsonify({"status": "ERROR", "message": "Recursos no cargados"}), 503
-        
-# --- CARGAR RECURSOS AL INICIAR LA APP ---
-load_resources()
 
 # --- EJECUTAR LA APLICACIÓN ---
 if __name__ == '__main__':
+    # --- CARGAR RECURSOS AL INICIAR LA APP ---
+    load_resources()
     # NO usar debug=True en producción final, pero útil para desarrollo
     app.run(debug=True, host='0.0.0.0', port=5000)

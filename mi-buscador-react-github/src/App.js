@@ -87,13 +87,24 @@ function App() {
             <h3>{result.subject}</h3>
             
             <div className="metadata-grid">
-                <span><strong>Ticket ID:</strong> {result.original_ticket_id}</span>
+                {/* El Ticket ID ahora es un enlace */}
+                <span>
+                  <strong>Ticket ID:</strong>{' '}
+                  <a 
+                    href={`https://github.com/microsoft/PowerToys/issues/${result.original_ticket_id}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    #{result.original_ticket_id}
+                  </a>
+                </span>
+                
                 <span><strong>Score:</strong> {result.score.toFixed(4)}</span>
                 <span><strong>Área:</strong> {result.area}</span>
                 <span><strong>Versión:</strong> {result.powertoys_version}</span>
             </div>
 
-            {result.tags && result.tags.length > 0 && (
+            {result.tags && Array.isArray(result.tags) && result.tags.length > 0 && (
               <div className="tags">
                 <strong>Tags:</strong>
                 {result.tags.map((tag, i) => (
@@ -108,7 +119,22 @@ function App() {
             </div>
             
             <div className="solution-section">
-                <h4>Solución Encontrada (de issue #{result.answer_source_id})</h4>
+                {/* El ID de la fuente de la solución ahora también es un enlace */}
+                <h4>
+                  Solución Encontrada{' '}
+                  {result.answer_source_id && result.original_ticket_id !== result.answer_source_id ? (
+                    <span>
+                      (de issue{' '}
+                      <a 
+                        href={`https://github.com/microsoft/PowerToys/issues/${result.answer_source_id}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        #{result.answer_source_id}
+                      </a>)
+                    </span>
+                  ) : '(Respuesta Directa)'}
+                </h4>
                 <pre className="answer-box">{result.answer}</pre>
             </div>
 
