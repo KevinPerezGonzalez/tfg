@@ -10,7 +10,7 @@ from flask_cors import CORS # Permite solicitudes CORS
 
 # --- CONFIGURACIÓN ---
 # Selección de modelo para que esta API lo sirva.
-# El índice FAISS y los metadatos deben corresponder a este modelo.
+# El índice FAISS y los metadatos deben corresponder al modelo.
 CHOSEN_MODEL_NAME = 'sentence-t5-base'
 SANITIZED_MODEL_NAME = CHOSEN_MODEL_NAME.replace('/', '_').replace('-', '_')
 INDEX_FILENAME = f"faiss_index_{SANITIZED_MODEL_NAME}.index"
@@ -36,7 +36,7 @@ def load_and_prepare_data_for_api(source_file, metadata_file_path):
     try:
         df = pd.read_csv(source_file)
         
-        # --- CORRECCIÓN CLAVE: Reemplazar NaN por None antes de cualquier otra cosa ---
+        # --- Reemplazar NaN por None antes de cualquier otra cosa ---
         df = df.replace({np.nan: None})
         
         # Preprocesamiento de tags por si vienen como string
@@ -122,8 +122,7 @@ def search_similar_cases_api(query_text, k_results=5):
                 similarity_score = distances[0][i]
                 retrieved_metadata = metadata_store_global[result_index]
 
-                # --- INICIO DE LA MODIFICACIÓN ---
-                # Añadimos todos los campos nuevos y estructurados a la respuesta
+                # Añadir todos los campos nuevos y estructurados a la respuesta
                 results.append({
                     'doc_id_internal': retrieved_metadata.get('doc_id_internal', result_index),
                     'original_ticket_id': retrieved_metadata.get('Ticket ID', 'N/A'), # Usar 'Ticket ID' que es el nombre de la columna
@@ -141,7 +140,6 @@ def search_similar_cases_api(query_text, k_results=5):
                     'expected_behavior': retrieved_metadata.get('expected_behavior', ''),
                     'steps_to_reproduce': retrieved_metadata.get('steps_to_reproduce', '')
                 })
-                # --- FIN DE LA MODIFICACIÓN ---
             else:
                  print(f"Advertencia: Índice FAISS {result_index} fuera de rango para metadatos.")
         return results

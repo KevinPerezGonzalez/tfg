@@ -35,22 +35,22 @@ function App() {
         params: { query: query }
       });
 
-      // Verificamos si la respuesta es realmente un array antes de actualizar el estado.
+      // Verificar si la respuesta es realmente un array antes de actualizar el estado.
       if (response.data && Array.isArray(response.data)) {
         setResults(response.data);
       } else {
         // Si la API devuelve algo que no es un array (un objeto, null, etc.),
-        // lo tratamos como un error para no romper la aplicación.
+        // se trata como un error para no romper la aplicación.
         console.error("La respuesta de la API no es un array:", response.data);
         setError("Se recibió una respuesta inesperada del servidor.");
-        setResults([]); // Nos aseguramos de que 'results' siga siendo un array vacío.
+        setResults([]); // Asegurar que 'results' siga siendo un array vacío.
       }
       
     } catch (err) {
       // 3. MANEJO DE ERRORES DE RED O HTTP
       console.error("Error en la llamada a la API:", err);
       setError(err.response?.data?.error || "Error al conectar con el servidor de búsqueda.");
-      setResults([]); // Aquí también, nos aseguramos de que 'results' sea un array.
+      setResults([]); // Asegurar que 'results' sea un array.
     } finally {
       setIsLoading(false);
     }

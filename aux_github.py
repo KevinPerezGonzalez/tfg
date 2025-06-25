@@ -47,22 +47,22 @@ def parse_powertoys_issue_body(body_text):
         "Other Software": "other_software"
     }
     
-    # Preparamos una expresión regular que buscará todas nuestras cabeceras
-    # Esto divide el texto en segmentos basados en las cabeceras que definimos
+    # Preparar una expresión regular que buscará todas las cabeceras
+    # Esto divide el texto en segmentos basados en las cabeceras definidas
     headers_pattern = "|".join(f"### {re.escape(h)}" for h in headers_map.keys())
     
-    # Usamos re.split para dividir el cuerpo por las cabeceras. El primer elemento suele ser vacío.
+    # Usar re.split para dividir el cuerpo por las cabeceras. El primer elemento suele ser vacío.
     segments = re.split(f"({headers_pattern})", body_text)
     
     data = {}
-    # Empezamos desde el índice 1, ya que el primer elemento de la división es el texto antes de la primera cabecera
+    # Empezar desde el índice 1, ya que el primer elemento de la división es el texto antes de la primera cabecera
     for i in range(1, len(segments), 2):
         header_full = segments[i].replace("### ", "").strip()
         content = segments[i+1].strip()
         
-        # Si el contenido no es "No response" o similar, lo guardamos
+        # Si el contenido no es "No response" o similar, se guarda
         if content and content.lower() not in ["no response", "n/a"]:
-            # Usamos nuestro mapa para obtener una clave limpia
+            # Usar mapa para obtener una clave limpia
             field_key = headers_map.get(header_full)
             if field_key:
                 data[field_key] = content
@@ -126,13 +126,13 @@ def find_final_solution(issue, repo, visited=None, max_hops=3):
 
     # Iterar para encontrar las pistas de 'dup' y del 'bot'
     for comment in all_comments:
-        # Pista de duplicado (si aún no la hemos encontrado)
+        # Pista de duplicado (si aún no se ha encontrado)
         if not canonical_issue_num:
             dup_match = re.search(r'(?i)\s*\/?\s*dup(?:licate)?(?: of)?\s*#(\d+)', comment.body)
             if dup_match:
                 canonical_issue_num = int(dup_match.group(1))
         
-        # Pista del bot (si aún no la hemos encontrado)
+        # Pista del bot (si aún no se ha encontrado)
         if not bot_linked_issue_num and comment.user.login == 'similar-issues-ai[bot]':
             linked_issues = parse_bot_comment(comment.body)
             if linked_issues:
@@ -145,7 +145,7 @@ def find_final_solution(issue, repo, visited=None, max_hops=3):
             # Comprobar que este comentario no sea el que marca el duplicado
             if not re.search(r'(?i)\s*\/?\s*dup(?:licate)?(?: of)?\s*#(\d+)', comment.body):
                 latest_human_answer = comment.body
-                break # Encontramos la respuesta humana más reciente y válida
+                break # Encontrar la respuesta humana más reciente y válida
 
     # --- ÁRBOL DE DECISIÓN BASADO EN PRIORIDADES ---
 
@@ -186,14 +186,14 @@ def update_csv_from_github():
     """
     print(f"[{datetime.now()}] Iniciando actualización desde '{REPO_NAME}'...")
 
-    # 1. Autenticación y acceso al repositorio (sin cambios)
+    # 1. Autenticación y acceso al repositorio
     if not GITHUB_TOKEN:
         print("Error: El token de GitHub no está configurado. Saliendo.")
         return
     g = Github(GITHUB_TOKEN)
     repo = g.get_repo(REPO_NAME)
 
-    # 2. Determinar desde cuándo buscar (sin cambios)
+    # 2. Determinar desde cuándo buscar
     since_timestamp = None
     if os.path.exists(TIMESTAMP_FILE):
         with open(TIMESTAMP_FILE, 'r') as f:
@@ -205,13 +205,13 @@ def update_csv_from_github():
     # 3. Obtener las issues cerradas y relevantes
     try:
         # --- INICIO DE LA MODIFICACIÓN ---
-        # Construimos un diccionario con los parámetros de la llamada a la API
+        # Construir un diccionario con los parámetros de la llamada a la API
         api_params = {
             'state': 'closed',
             'labels': ['Issue-Bug']
         }
         
-        # Solo añadimos el parámetro 'since' si tiene un valor (es decir, no es la primera ejecución)
+        # Solo añadir el parámetro 'since' si tiene un valor (es decir, no es la primera ejecución)
         if since_timestamp:
             print(f"Buscando issues cerradas en '{REPO_NAME}' desde: {since_timestamp.isoformat()}")
             api_params['since'] = since_timestamp
@@ -219,7 +219,7 @@ def update_csv_from_github():
             print(f"Primera ejecución. Obteniendo el historial completo de issues de '{REPO_NAME}'.")
             print("ADVERTENCIA: Esto puede tardar mucho tiempo y consumir muchos créditos de la API.")
         
-        # Usamos ** para desempaquetar el diccionario como argumentos de la función.
+        # Usar ** para desempaquetar el diccionario como argumentos de la función.
         # Si 'since' no se añadió al diccionario, no se pasará a la función.
         closed_issues = repo.get_issues(**api_params)
         
@@ -227,7 +227,7 @@ def update_csv_from_github():
         print("Límite de la API de GitHub alcanzado. Inténtalo de nuevo más tarde (en una hora). Saliendo.")
         return
     except Exception as e:
-        # Mantenemos el diagnóstico detallado por si acaso
+        # Mantener el diagnóstico detallado
         print(f"Error DETALLADO al obtener issues de la API de GitHub:")
         print(f"  - TIPO DE ERROR: {type(e)}")
         print(f"  - MENSAJE: {e}")
@@ -261,14 +261,14 @@ def update_csv_from_github():
                 actual_behavior = parsed_body.get('actual_behavior', '')
                 steps = parsed_body.get('steps_to_reproduce', '')
                 
-                # Combinamos los campos más relevantes para describir el problema
+                # Combinar los campos más relevantes para describir el problema
                 high_quality_problem_text = f"Área: {area}. Problema: {title}. Comportamiento: {actual_behavior}. Pasos para reproducir: {steps}"
 
                 # 3. Crear el registro para el CSV con los nuevos campos
                 new_entry = {
                     'Ticket ID': issue.number,
                     'subject': title,
-                    'problem_text': high_quality_problem_text, # Usamos el texto de alta calidad
+                    'problem_text': high_quality_problem_text, # Usar el texto de alta calidad
                     'answer': result_tuple[0],
                     'answer_source_id': result_tuple[1],
                     'is_direct_answer': issue.number == result_tuple[1],
@@ -296,7 +296,7 @@ def update_csv_from_github():
 
     if new_data:
         new_df = pd.DataFrame(new_data)
-        # Guardamos el CSV igualmente para tener un registro completo y persistente
+        # Guardar el CSV igualmente para tener un registro completo y persistente
         if os.path.exists(SOURCE_DATA_FILE):
             existing_df = pd.read_csv(SOURCE_DATA_FILE)
             combined_df = pd.concat([existing_df, new_df]).drop_duplicates(subset=['Ticket ID'], keep='last')
@@ -308,7 +308,7 @@ def update_csv_from_github():
                 f.write(datetime.now().isoformat())
         print(f"Nueva fecha de actualización guardada en {TIMESTAMP_FILE}.")
             
-        return new_df # <-- Devolvemos solo el DataFrame con los nuevos datos
+        return new_df # <-- Devolver solo el DataFrame con los nuevos datos
     else:
         print("No se encontraron nuevas issues procesables. El archivo CSV está actualizado.")
 
@@ -316,7 +316,7 @@ def update_csv_from_github():
             f.write(datetime.now().isoformat())
         print(f"Nueva fecha de actualización guardada en {TIMESTAMP_FILE}.")
 
-        return None # <-- Devolvemos None si no hay nada nuevo
+        return None # <-- Devolver None si no hay nada nuevo
 
 def update_artifacts_incrementally(new_data_df, models_list, metadata_json_path):
     """
@@ -407,7 +407,7 @@ def run_complete_pipeline():
 
 # --- Programador de Tareas ---
 if __name__ == "__main__":
-    # La función que se programa ahora es la orquestadora principal
+    # La función que se programa es la orquestadora principal
     run_complete_pipeline() 
     
     scheduler = BackgroundScheduler(timezone="Europe/Madrid")
