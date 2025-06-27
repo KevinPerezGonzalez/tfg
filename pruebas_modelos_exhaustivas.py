@@ -17,7 +17,7 @@ MODELS_TO_TEST = [
     'distiluse-base-multilingual-cased-v1', 
 ]
 
-SOURCE_DATA_FILE = "customer-support-tickets-en-derfinitivo.csv"
+SOURCE_DATA_FILE = "customer-support-tickets-en-definitivo.csv"
 METADATA_FILENAME_GLOBAL = "support_cases_metadata_GLOBAL.json"
 COMPARISON_RESULTS_FILE = "model_comparison_results.csv" # Para guardar los resultados de la comparación
 
